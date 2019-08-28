@@ -1,0 +1,50 @@
+@charset "utf-8";*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+body{max-width:720px;font-family:"Microsoft Yahei",Arial,Helvetica,sans-serif;color:#999;font-size:14px;}
+
+body,img,ul,ol,li,h1,h2,h3,h4,h5,h6,p,th,td,form{margin:auto;padding:0;border:0;outline:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+img{vertical-align:middle;vertical-align:middle;max-width:100%;border:none;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+img.fdimg{transition:0.5s;transform:scale3d(1,1,1);-webkit-transition:0.5s;-webkit-transform:scale3d(1,1,1);-o-transition:0.5s;-o-transform:scale3d(1,1,1);}
+img.fdimg:hover{transform:scale3d(1.1,1.1,1);transition:0.5s;-webkit-transform:scale3d(1.1,1.1,1);-webkit-transition:0.5s;-o-transform:scale3d(1.1,1.1,1);-o-transition:0.5s;}
+
+ul,li{list-style-type:none;}
+a{color:#333;text-decoration:none;}
+a:hover{color:#103f99;text-decoration:none;}
+.w720{margin:auto;max-width:720px;}
+.top-logo{ width:100%;text-align:center;padding:80px 0 10px 0;}
+.top-logo img{max-height:150px;}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder{color:#c9caca;}
+input:-moz-placeholder, textarea:-moz-placeholder{color:#c9caca;font-size:16px;}
+input::-moz-placeholder, textarea::-moz-placeholder{color:#c9caca;font-size:16px;}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder{color:#c9caca;}
+
+.header{width:100%;padding-top:18px;color:#fff;position:relative;overflow:hidden;}
+.header .top-left{float:left;padding-left:10px;position:absolute;}
+.header .top-right{float:right;padding-right:10px;}
+.header .top-m{width:100%;text-align:center;font-size:16px;}
+.header img{max-height:32px;}
+.header .return{cursor:pointer;height:22px;overflow:hidden;width:60px;}
+.header .return img{max-height:20px;z-index:99;}
+.header .top-set{position:absolute;top:18px;right:10px;}
+.header .top-set img{max-height:20px;}
+
+.login-form{width:100%;padding:15px;}
+.login-form li{width:100%;padding:10px 0;}
+.login-form li .ipt{background-color:rgba(204,204,204,0.5);padding:3px 10px;line-height:45px;border-radius:18px;}
+.login-form li .ipt input{width:auto;background:none;border:none;outline:none;line-height:40px;font-size:16px;color:#FFF;}
+.login-form li .ipt .ico{float:left;width:30px;}
+.login-form li .ipt .ico img{max-height:18px;}
+.login-form li .ipt .imgcode{float:right;cursor:pointer;}
+.login-form li .ipt .imgcode img{max-height:32px;}
+.login-form li .submit{background-color:rgba(255,255,255,0.8);text-align:center;width:100%;color:#62428d;line-height:45px;border-radius:18px;}
+.login-form li .submit input{width:auto;background:none;border:none;outline:none;width:100%;height:45px;line-height:45px;font-size:16px;color:#62428d;}
+.login-form li .left{float:left;}
+.login-form li .right{float:right;}
+.login-form li a{color:#FFF;font-size:14px;}
+.login-form li a span{color:#7ecef4;}
+.login-form li .send-code{ float:right;color:#fff;background-color:#7ecef4;margin-top:8px;width:110px;text-align:center;height:32px;line-height:32px;border-radius:18px;}
+.login-form li .checkbox{border:none;outline:none;}
+#checkbox-blue +label{display:block;width:18px;height:18px;cursor:pointer;position:absolute;top:12px;left:8px;background:#ffffff;}
+#checkbox-blue:checked +label::before{display:block;content:"\2714";text-align:center;font-size:14px;color:#ffffff;background:#7ecef4;}
+input[type=checkbox]{display:inline-block;visibility:hidden;}
