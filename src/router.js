@@ -7,7 +7,7 @@ import MyWallet from './views/MyWallet.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -16,14 +16,18 @@ export default new Router({
       component: Home
     },
     {
-      path: '/serviceCenter',
+      path: '/sc',
       name: 'serviceCenter',
       component: ServiceCenter
     },
     {
-      path: '/myWallet',
+      path: '/mw',
       name: 'myWallet',
       component: MyWallet
+    },
+    {
+      path:'*',
+      redirect: Home
     }
   ]
 })

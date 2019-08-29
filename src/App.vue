@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 body {
-  max-width: 720px;
+  max-width: 750px;
   font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
   color: #999;
   font-size: 14px;
@@ -85,6 +85,6 @@ a:hover {
 }
 .w720 {
   margin: auto;
-  max-width: 720px;
+  max-width: 750px;
 }
 </style>
