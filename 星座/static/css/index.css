@@ -5,7 +5,7 @@
 .index-p li .box{background:url(index-p-bg.png) no-repeat;background-size:100% 100%;width:100%;padding:5px 10px; font-size:12px; overflow:hidden;}
 .index-p li .box .top-list{width:100%;padding-bottom:5px;border-bottom:#fff 1px dashed; overflow:hidden;}
 .index-p li .box .top-list p{width:100%;line-height:20px;}
-.index-p li .box .top-list p .c1{color:#32b7ec;padding-right:0px;font-size:12px;}
+.index-p li .box .top-list p .c1{color:#7184bb;padding-right:0px;font-size:12px;}
 .index-p li .box .top-list p .c2{color:#fff;}
 .bottoms{width:100%;padding-top:15px;padding-bottom:5px;color:#FFF;position:relative;overflow:hidden;}
 .bottoms .txt1{float:left;width:40%;text-align:center;vertical-align:bottom;position:absolute;left:0;bottom:0;}
