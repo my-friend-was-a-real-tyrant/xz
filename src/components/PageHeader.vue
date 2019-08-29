@@ -11,7 +11,7 @@ export default {
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss">
 .header{width:100%;padding-top:18px;color:#fff;position:relative;overflow:hidden;}
 .header .top-left{float:left;padding-left:10px;position:absolute;}
 .header .top-right{float:right;padding-right:10px;}

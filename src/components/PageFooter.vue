@@ -3,9 +3,9 @@
       <div class="foot-h"></div>
     <div class="bottom_bar">
     <ul class="bottom_menu">
-    <li><a href="#"><p><img src="@/assets/img/bt1.png"></p>幸运星座</a></li>
-    <li><a href="#"><p><img src="@/assets/img/bt2.png"></p>服务中心</a></li>
-    <li><a href="#"><p><img src="@/assets/img/bt3.png"></p>我的钱包</a></li>
+    <li><a href="/"><p><img src="@/assets/img/bt1.png"></p>幸运星座</a></li>
+    <li><a href="/serviceCenter"><p><img src="@/assets/img/bt2.png"></p>服务中心</a></li>
+    <li><a href="/myWallet"><p><img src="@/assets/img/bt3.png"></p>我的钱包</a></li>
     </ul>
     </div>
   </div>

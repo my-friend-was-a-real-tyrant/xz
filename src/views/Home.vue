@@ -6,7 +6,6 @@
 
    <div class="index-p"><ul>
 
-
 <li><div class="box"><div class="top-list">
 <p><span class="c1">价值：</span><span class="c2">100-300</span></p>
 <p><span class="c1">领养时间：</span><span class="c2">11:00-11:30</span></p>
