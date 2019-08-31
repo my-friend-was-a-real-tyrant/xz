@@ -21,6 +21,11 @@ export default new Router({
       component: ServiceCenter
     },
     {
+      path: '/register',
+      name: 'register',
+      component: () => import('./views/register.vue')
+    },
+    {
       path: '/mw',
       name: 'myWallet',
       component: MyWallet

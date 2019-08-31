@@ -1,0 +1,50 @@
+@charset "utf-8";
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+body{max-width:720px;font-family:"Microsoft Yahei",Arial,Helvetica,sans-serif;color:#999;font-size:14px;background:url(bg.jpg) center repeat-y;}
+
+body,img,ul,ol,li,h1,h2,h3,h4,h5,h6,p,th,td,form{margin:auto;padding:0;border:0;outline:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+img{vertical-align:middle;vertical-align:middle;max-width:100%;border:none;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+img.fdimg{transition:0.5s;transform:scale3d(1,1,1);-webkit-transition:0.5s;-webkit-transform:scale3d(1,1,1);-o-transition:0.5s;-o-transform:scale3d(1,1,1);}
+img.fdimg:hover{transform:scale3d(1.1,1.1,1);transition:0.5s;-webkit-transform:scale3d(1.1,1.1,1);-webkit-transition:0.5s;-o-transform:scale3d(1.1,1.1,1);-o-transition:0.5s;}
+
+ul,li{list-style-type:none;}
+a{color:#333;text-decoration:none;}
+a:hover{color:#103f99;text-decoration:none;}
+.w720{margin:auto;max-width:720px;}
+
+
+.header{width:100%;padding-top:18px;color:#fff;position:relative;overflow:hidden;}
+.header .top-left{float:left;padding-left:10px;position:absolute;}
+.header .top-right{float:right;padding-right:10px;}
+.header .top-m{width:100%;text-align:center;font-size:16px;}
+.header img{max-height:32px;}
+.header .return{cursor:pointer;height:22px;overflow:hidden;width:60px;}
+.header .return img{max-height:20px;z-index:99;}
+.header .top-set{position:absolute;top:18px;right:10px;}
+.header .top-set img{max-height:20px;}
+.banner{padding:10px;}
+
+
+
+
+
+/*底部浮动*/
+.foot-h{height:70px;width:100%;overflow:hidden;}
+.bottom_bar{margin:auto;position:fixed;z-index:10;bottom:0;left:0;right:0;background:url(../img/bottom_bar_bg.jpg) repeat-x;height:70px;}
+.bottom_bar .bottom_menu{display:block;width:100%;padding-top:3px;display:box;}
+.bottom_bar .bottom_menu li{float:left;width:33.3333%;text-align:center;position:relative;}
+.bottom_bar .bottom_menu li p{max-height:38px;}
+.bottom_bar .bottom_menu li p img{max-height:38px;}
+.bottom_bar .bottom_menu li a{display:block;text-align:center;color:#fff;font-size:14px;padding-top:5px;}
+/*位置*/
+
+.footh{width:100%;height:70px;overflow:hidden;}
+footer{width:100%;background:#fff;position:fixed;bottom:0px;left:0px;z-index:999;padding:10px 5% 5px 5%;border-top:1px solid #ddd;}
+footer ul{width:100%;}
+footer li{float:left;text-align:center;width:33%}
+footer li:nth-of-type(1){width:25%}
+footer li:nth-of-type(2){width:50%}
+footer li:nth-of-type(3){width:25%}
+footer li.on a{color:#FF4F53;}
+footer li a{color:#999;}
