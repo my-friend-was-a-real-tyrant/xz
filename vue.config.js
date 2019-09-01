@@ -45,7 +45,7 @@ module.exports = {
     devServer: {
         host: '0.0.0.0',
         port: 8080, // 端口地址
-        https: false, // 使用https提供服务
+        // https: false, // 使用https提供服务
         proxy: {
             '/api': {
                 target: 'https://api.dzccn.com/index.php/',
