@@ -3,6 +3,7 @@ const configs = require('./config')
 
 // 用于做相应的merge处理
 const merge = require('webpack-merge')
+const webpack = require('webpack')
 // const { DefinePlugin } = require('webpack')
 // const CompressionWebpackPlugin = require('compression-webpack-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -41,6 +42,15 @@ module.exports = {
             })
     },
 
+    configureWebpack: {
+        plugins: [
+            new webpack.ProvidePlugin({
+                $:"jquery",
+                jQuery:"jquery",
+                "windows.jQuery":"jquery"
+            })
+        ]
+    },
 
     devServer: {
         host: '0.0.0.0',

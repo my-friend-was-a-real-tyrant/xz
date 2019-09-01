@@ -45,11 +45,6 @@ export default new Router({
       name: 'bst',
       component: () => import('./views/bst.vue')
     },
-  {
-      path: '/myCard',
-      name: 'myCard',
-      component:  () => import('./views/myCard.vue')
-    },
     {
       path:'*',
       redirect: Home

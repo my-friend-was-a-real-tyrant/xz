@@ -36,6 +36,7 @@ export default new Router({
       component: MyWallet
     },
     {
+<<<<<<< HEAD
       path: '/password',
       name: 'password',
       component: () => import('./views/set-password.vue')
@@ -44,11 +45,11 @@ export default new Router({
       path: '/bst',
       name: 'bst',
       component: () => import('./views/bst.vue')
-    },
-  {
+=======
       path: '/myCard',
       name: 'myCard',
       component:  () => import('./views/myCard.vue')
+>>>>>>> f87180cb463a8409d4c94e92f98a706f55c9cf9c
     },
     {
       path:'*',
