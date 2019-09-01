@@ -56,7 +56,6 @@ instance.interceptors.response.use(
 
 export function fetch(url, params = {}) {
     return new Promise((resolve, reject) => {
-        console.log(qs.stringify(params));
         instance.get(url, {
             params: params
         })
