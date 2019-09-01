@@ -28,11 +28,22 @@
 </template>
 
 <script>
+
   export default {
     name: "register",
+    data () {
+      return {
+        randomString: 'fdjsfjsdlfjoewj'
+      }
+    },
     methods: {
       sendAuthCode () {
-
+        return
+        this.$fetch('/api?m=Home&c=Api&a=send_validate_code', {
+          mobile: '18257346778',
+          unique_id: this.randomString,
+          scene: 1
+        })
       }
     }
   }
