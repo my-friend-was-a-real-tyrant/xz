@@ -1,27 +1,32 @@
 <template>
     <div class="home">
         <PageHeader/>
-
         <div class="banner"><img src="@/assets/img/b1.png"></div>
-
         <div class="index-p">
             <ul>
 
-                <li v-for="(item,key) in GoodsList">
+                <li v-for="(item,key) in GoodsList" :key="key">
                     <div class="box">
                         <div class="top-list">
-                            <p><span class="c1">价值：</span><span class="c2">100-300</span></p>
-                            <p><span class="c1">领养时间：</span><span class="c2">{{item.keywords}}</span></p>
-                            <p><span class="c1">预约/即抢领养积分：</span><span class="c2">2/4</span></p>
-                            <p><span class="c1">智能合约收益：</span><span class="c2">5天/15%</span></p>
-                            <p><span class="c1">可挖LUCKY：</span><span class="c2">1枚</span></p>
-                            <p><span class="c1">可挖GTC：</span><span class="c2">1%</span></p>
+                            <p><span class="c1">价值：</span><span
+                                    class="c2">{{item.shop_price}}-{{item.market_price}}</span></p>
+                            <p><span class="c1">领养时间：</span><span
+                                    class="c2">{{item.start_time}}-{{item.end_time}}</span></p>
+                            <p><span class="c1">预约/即抢领养积分：</span><span class="c2">{{item.spu}}/{{item.sku}}</span></p>
+                            <p><span class="c1">智能合约收益：</span><span
+                                    class="c2">{{item.order_day}}天/{{item.order_rate}}%</span></p>
+                            <p><span class="c1">可挖LUCKY：</span><span class="c2">{{item.can_lucky}}枚</span></p>
+                            <p><span class="c1">可挖GTC：</span><span class="c2">{{item.can_gtc}}%</span></p>
                         </div>
                         <div class="bottoms">
-                            <div class="txt1"><img src="@/assets/img/x1.png"></div>
+                            <div class="txt1"><img :src="_imgUrl+item.goods_images"></div>
                             <div class="txt2"><img src="@/assets/img/x1s.png">
                                 <p>{{item.goods_name}}</p>
-                                <div class="bt">繁殖中</div>
+                                <div class="bt" v-if="realTime.H==11&&realTime.Min>0&&realTime.Min<29">预约</div>
+                                <div class="bt " v-else-if="realTime.H==11&&realTime.Min>=29&&realTime.Min<30">倒计时{{count}}</div>
+                                <div class="bt on2" v-else-if="realTime.H==11&&realTime.Min>=30&&realTime.Min<32">开抢</div>
+                                <div class="bt on1" v-else>蜕变中</div>
+                                --
                             </div>
                         </div>
                     </div>
@@ -267,7 +272,9 @@
 
     import PageHeader from '@/components/PageHeader.vue'
     import PageFooter from '@/components/PageFooter.vue'
+    import {dealWithTime} from '@/tools.js'
 
+    console.log(dealWithTime);
     export default {
         name: 'home',
         components: {
@@ -276,20 +283,56 @@
         },
         data() {
             return {
-                GoodsList: []
+                GoodsList: '',
+                realTime: '',
+                totalTime: 60,
+                count:'',
+                timer2: null,
+                timer1: null
             }
         },
         created() {
             this.getGoodsList()
         },
+
+        mounted() {
+            // 页面加载完后显示当前时间
+            this.realTime = dealWithTime(new Date())
+            // 定时刷新时间
+            let _this = this
+            // 定时器
+            this.timer1 = setInterval(function () {
+                _this.realTime = dealWithTime(new Date()) // 修改数据date
+                if (_this.realTime.H==11&&_this.realTime.Min>=29&&_this.realTime.Min<30) {
+                    _this.getCode()
+                }
+            }, 1000)
+
+            // if(this.)
+        },
         methods: {
+            getCode() {
+                const TIME_COUNT = 60;
+                if (!this.timer2) {
+                    this.count = TIME_COUNT;
+                    this.timer = setInterval(() => {
+                        if (this.count > 0 && this.count <= TIME_COUNT) {
+                            this.count--;
+                        } else {
+                            this.show = true;
+                            clearInterval(this.timer);
+                            this.timer = null;
+                        }
+                    }, 1000)
+                }
+            },
             // 首页list
             getGoodsList() {
                 this.$fetch('api?m=Api&c=Goods&a=goodsList').then(({result}) => {
                     this.GoodsList = result.goods_list
-                    console.log(result);
                 })
             },
+            // 抢购
         }
     }
 </script>

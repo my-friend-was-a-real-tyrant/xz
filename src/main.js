@@ -16,6 +16,10 @@ Vue.prototype.Toast = Toast;
 Vue.prototype.$fetch = fetch;
 Vue.prototype.$patch = patch;
 Vue.prototype.$put = put;
+
+// 图片地址
+Vue.prototype._imgUrl= process.env.imgUrl;
+
 new Vue({
     router,
     store,
