@@ -27,7 +27,7 @@
     <div class="wallet-b"><ul>
     <li><a href="#"><img src="@/assets/img/p7.png"><p>安全中心</p></a></li>
     <li><a href="#"><img src="@/assets/img/p8.png"><p>实名认证</p></a></li>
-    <li><a href="#"><img src="@/assets/img/p9.png"><p>我的银行卡</p></a></li>
+    <li><a href="/myCard"><img src="@/assets/img/p9.png"><p>我的银行卡</p></a></li>
     <li><a href="#"><img src="@/assets/img/p10.png"><p>我的团队</p></a></li>
     <li><a href="#"><img src="@/assets/img/p11.png"><p>邀请好友</p></a></li>
     <li><a href="#"><img src="@/assets/img/p12.png"><p>系统消息</p></a></li>

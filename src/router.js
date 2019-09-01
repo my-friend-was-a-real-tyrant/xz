@@ -36,6 +36,11 @@ export default new Router({
       component: MyWallet
     },
     {
+      path: '/myCard',
+      name: 'myCard',
+      component:  () => import('./views/myCard.vue')
+    },
+    {
       path:'*',
       redirect: Home
     }
