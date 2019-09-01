@@ -26,6 +26,11 @@ export default new Router({
       component: () => import('./views/register.vue')
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/login.vue')
+    },
+    {
       path: '/mw',
       name: 'myWallet',
       component: MyWallet
