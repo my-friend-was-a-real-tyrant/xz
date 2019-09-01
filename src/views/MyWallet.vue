@@ -5,17 +5,17 @@
     <div class="header"><div class="top-left"><a href="javascript:;" onclick="javascript:history.go(-1);return false;" title="后退"><div class="return"><img src="@/assets/img/p1.png"></div></a></div><div class="top-m">我的钱包</div><div class="top-set"><a href="#"><img src="@/assets/img/p2.png"></a></div></div>
 
     <div class="wallet-h">
-    <div class="avatar"><img src="@/assets/img/p3.png"></div>
-    <div class="id">ID/手机：15812345678</div>
-    <div class="group">级别：注册会员</div>
+    <div class="avatar"><img :src="_imgUrl+userInfo.head_pic"></div>
+    <div class="id">ID/手机：{{userInfo.mobile}}</div>
+    <div class="group">级别：{{userInfo.level}}</div>
     </div>  
     <div class="wallet-list"><ul>
-    <li><div class="brt">GTC：0</div></li>
-    <li><div class="brt">积分：5</div></li>
-    <li><div class="brt">LUCKY：0</div></li>
-    <li><div class="brt">推荐受益：0</div></li>
-    <li><div class="brt">累计收益：0</div></li>
-    <li><div class="brt">总资产：0</div></li>
+    <li><div class="brt">GTC：{{userInfo.user_money}}</div></li>
+    <li><div class="brt">积分：{{userInfo.pay_points}}</div></li>
+    <li><div class="brt">LUCKY：{{userInfo.lucky_money}}</div></li>
+    <li><div class="brt">推荐受益：{{userInfo.distribut_money}}</div></li>
+    <li><div class="brt">累计收益：{{userInfo.leji_money}}</div></li>
+    <li><div class="brt">总资产：{{userInfo.total_money}}</div></li>
     </ul></div>
 
     <div class="wallet-a"><ul>
@@ -48,6 +48,23 @@ export default {
   components: {
     PageHeader,
     PageFooter
+  },
+  data(){
+    return{
+      userInfo:''
+    }
+  },
+  created(){
+    this.getUserInfo()
+  },
+  methods:{
+    getUserInfo(){
+      this.$fetch('api?m=api&c=user&a=userInfo',{token:localStorage.getItem("token")})
+              .then(({result})=>{
+                this.userInfo=result
+              })
+    }
+    // https://api.dzccn.com/index.php?m=api&c=user&a=userInfo
   }
 }
 </script>

@@ -24,7 +24,7 @@
                                 <p>{{item.goods_name}}</p>
                                 <div class="bt" v-if="realTime.H==11&&realTime.Min>0&&realTime.Min<29">预约</div>
                                 <div class="bt " v-else-if="realTime.H==11&&realTime.Min>=29&&realTime.Min<30">倒计时{{count}}</div>
-                                <div class="bt on2" v-else-if="realTime.H==11&&realTime.Min>=30&&realTime.Min<32">开抢</div>
+                                <div class="bt on2" @click="rushOrder(item)" v-else-if="realTime.H==11&&realTime.Min>=30&&realTime.Min<32">开抢</div>
                                 <div class="bt on1" v-else>蜕变中</div>
                                 --
                             </div>
@@ -311,6 +311,7 @@
             // if(this.)
         },
         methods: {
+            // 60秒倒计时
             getCode() {
                 const TIME_COUNT = 60;
                 if (!this.timer2) {
@@ -333,6 +334,14 @@
                 })
             },
             // 抢购
+            rushOrder(item){
+                this.$post('api?m=api&c=Order&a=add_order_jin',{
+                    token:localStorage.getItem("token"),goods_id:item.goods_id
+                }).then(({result}) => {
+                    // 处理获取成功的文子
+                    console.log(result)
+                })
+            }
         }
     }
 </script>
