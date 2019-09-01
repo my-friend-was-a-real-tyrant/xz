@@ -54,7 +54,7 @@
           this.Toast(res.msg)
 
           if (res.status == 1) {
-            this.__proto__.prototype.userinfo = res.result
+            localStorage.setItem('userinfo', res.result)
             this.$router.replace('/')
             // this.login()
           }

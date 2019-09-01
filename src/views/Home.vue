@@ -292,7 +292,6 @@
             }
         },
         created() {
-          console.log(444, this, this.__proto__,this.__proto__.prototype, this.userinfo)
             this.getGoodsList()
         },
 
