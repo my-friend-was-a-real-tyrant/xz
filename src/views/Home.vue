@@ -273,7 +273,6 @@
     import PageFooter from '@/components/PageFooter.vue'
     import {dealWithTime} from '@/tools.js'
 
-    console.log(dealWithTime);
     export default {
         name: 'home',
         components: {

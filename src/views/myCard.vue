@@ -20,11 +20,17 @@
                 </div>
                 <div class="list-a1">
                     <div class="titles">支付宝账号</div>
-                    <div class="ipt"><input type="text" name="" value="123@qq.com"></div>
+                    <div class="ipt"><input type="text" name="" v-model="cardInfoList.alipay_account"></div>
                     <div class="titles">收款人</div>
-                    <div class="ipt"><input type="text" name="" value="王小二"></div>
+                    <div class="ipt"><input type="text" name="" v-model='cardInfoList.real_name'></div>
                     <div class="titles">收款二维码</div>
-                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/ewm.jpg"></div>
+                    <div v-if="!cardInfoList.alipay_code" class="ipt" style="text-align:center;padding:20px 0;">
+                    <van-uploader  v-model="fileList"  multiple :max-count="1" :after-read="onRead">
+                        <img src="@/assets/img/ewm.jpg">
+                    </van-uploader>
+                    </div>
+                    <div class="ipt" v-else style="text-align:center;padding:20px 0;"><img :src="_imgUrl+cardInfoList.alipay_code"></div>
+                    <!--    -->
                 </div>
             </div>
 
@@ -128,6 +134,39 @@
             PageHeader,
             PageFooter
         },
+        created(){
+            this.getInfoList()
+        },
+        data(){
+            return{
+                cardInfoList:'',  fileList: []
+            }
+        },
+        methods:{
+            // 获取默认值
+            getInfoList(){
+                https://api.dzccn.com/index.php?m=api&c=user&a=getinfoList
+                this.$post('api?m=api&c=user&a=getinfoList',{token:localStorage.getItem("token")}).then(({result})=>{
+                    console.log(result);
+                    this.cardInfoList=result
+                })
+            },
+            onRead (file) { // 上传图片到图片服务器
+                // this.$refs.clothImg.src = file.content
+                this.fileList.push(file)  // postData是一个数组
+                let url = 'api?m=api&c=user&a=upload_code'
+                let fd = new FormData()
+                fd.append('file', file.file)
+                this.$post(url, fd, {headers: {
+                        'Content-Type': 'Content-Type:application/x-www-form-urlencoded'
+                    }}).then(res => {
+                        debugger
+                    // this.imgUrlListValue.push(res.data.urls[0].image) //这里上传到指定的图片服务器，成功后会返回图片的url
+                }).catch(err => {
+                    alert(err)
+                })
+            },
+        }
     }
 </script>
 

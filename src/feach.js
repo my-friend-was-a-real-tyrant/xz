@@ -88,6 +88,23 @@ export function post(url, data = {}) {
 }
 
 /**
+ * 文件上传
+ * @param url
+ * @param data
+ * @returns {Promise<unknown>}
+ */
+export function file(url, data = {}) {
+    return new Promise((resolve, reject) => {
+        instance.post(url,data)
+            .then(response => {
+                resolve(response.data);
+            }, err => {
+                reject(err)
+            })
+    })
+}
+
+/**
  * 封装patch请求
  * @param url
  * @param data
