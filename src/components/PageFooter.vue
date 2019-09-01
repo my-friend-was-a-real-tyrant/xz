@@ -39,7 +39,6 @@ export default {
   display: block;
   width: 100%;
   padding-top: 3px;
-  display: box;
 }
 .bottom_bar .bottom_menu li {
   float: left;
