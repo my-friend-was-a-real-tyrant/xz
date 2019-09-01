@@ -54,7 +54,7 @@
           this.Toast(res.msg)
 
           if (res.status == 1) {
-            localStorage.setItem('userinfo', res.result)
+            localStorage.setItem('userinfo', JSON.stringify(res.result))
             this.$router.replace('/')
             // this.login()
           }
