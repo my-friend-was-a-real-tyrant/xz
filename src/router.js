@@ -36,6 +36,16 @@ export default new Router({
       component: MyWallet
     },
     {
+      path: '/password',
+      name: 'password',
+      component: () => import('./views/set-password.vue')
+    },
+    {
+      path: '/bst',
+      name: 'bst',
+      component: () => import('./views/bst.vue')
+    },
+    {
       path:'*',
       redirect: Home
     }
