@@ -21,6 +21,21 @@ export default new Router({
       component: ServiceCenter
     },
     {
+      path: '/os',
+      name: 'OnlineService',
+      component: () => import('./views/OnlineService.vue')
+    },
+    {
+      path: '/wo',
+      name: 'WorkOrder',
+      component: () => import('./views/WorkOrder.vue')
+    },
+    {
+      path: '/sm',
+      name: 'SystemMessage',
+      component: () => import('./views/SystemMessage.vue')
+    },
+    {
       path: '/register',
       name: 'register',
       component: () => import('./views/register.vue')

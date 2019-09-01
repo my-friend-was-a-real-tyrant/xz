@@ -4,7 +4,6 @@
         <div class="banner"><img src="@/assets/img/b1.png"></div>
         <div class="index-p">
             <ul>
-
                 <li v-for="(item,key) in GoodsList" :key="key">
                     <div class="box">
                         <div class="top-list">
@@ -274,7 +273,6 @@
     import PageFooter from '@/components/PageFooter.vue'
     import {dealWithTime} from '@/tools.js'
 
-    console.log(dealWithTime);
     export default {
         name: 'home',
         components: {
