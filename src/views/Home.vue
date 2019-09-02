@@ -21,14 +21,25 @@
                             <div class="txt1"><img :src="_imgUrl+item.goods_images"></div>
                             <div class="txt2"><img src="@/assets/img/x1s.png">
                                 <p>{{item.goods_name}}</p>
-                                <div class="bt" v-if="showTime<item.start_time_unix">预约</div>
-                                <div class="bt " v-else-if="showTime>item.start_time_unix&&showTime<(item.end_time_unix-60*60)">
-                                    倒计时{{count}}
+                                <!--is_on_sale 上架 order_on 预约-->
+                                <div v-if="is_on_sale">
+                                    <div class="bt" v-if="showTime<item.start_time_unix" @click="rushOrder(item,1)">
+                                        {{item.order_on==0?"预约":"预约中"}}
+                                    </div>
+                                    <div class="bt on2" @click="rushOrder(item,2)"
+                                         v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix-60*1000)">
+                                        <span></span>
+                                        <!--                                        {{item.order_on==2?'抢购成功':'抢购'}}-->
+                                        {{item.order_on==1?'蜕变中':item.order_on==2?'抢购成功':'抢购'}}
+                                    </div>
+                                    <div class="bt "
+                                         v-else-if="showTime>(item.end_time_unix-60*1000)&&showTime<(item.end_time_unix)">
+                                        倒计时{{parseInt((item.end_time_unix-showTime)/60000)}}
+                                    </div>
+
+                                    <div class="bt on1" v-else>繁殖中</div>
                                 </div>
-                                <div class="bt on2" @click="rushOrder(item)"
-                                     v-else-if="showTime>(item.end_time_unix)&&showTime<(item.end_time_unix+60*60)">开抢
-                                </div>
-                                <div class="bt on1" v-else>蜕变中</div>
+                                <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
                                 --
                             </div>
                         </div>
@@ -274,7 +285,7 @@
 <script>
     import PageHeader from '@/components/PageHeader.vue'
     import PageFooter from '@/components/PageFooter.vue'
-    import {dealWithTime} from '@/tools.js'
+    // import {dealWithTime} from '@/tools.js'
 
     export default {
         name: 'home',
@@ -297,30 +308,13 @@
         created() {
             this.getGoodsList()
         },
-        computed: {
-            // 倒计时方法
-            getCode() {
-                const TIME_COUNT = 60;
-                if (!this.timer2) {
-                    this.count = TIME_COUNT;
-                    this.timer = setInterval(() => {
-                        if (this.count > 0 && this.count <= TIME_COUNT) {
-                            this.count--;
-                            return this.count
-                        } else {
-                            this.show = true;
-                            clearInterval(this.timer);
-                            this.timer = null;
-                        }
-                    }, 1000)
-                }
-            },
-        },
+        computed: {},
         mounted() {
             this.compareTime()
         },
         methods: {
-            compareTime () {
+            // 当前时间
+            compareTime() {
                 let timer1 = setInterval(() => {
                     this.showTime = this.getCurrentTime()
                 }, 1000)
@@ -333,25 +327,12 @@
                 let H = data.getHours()
                 let Min = data.getMinutes()
                 let S = data.getSeconds()
+                if (Min == '29' || Min == '59') {
+                    this.getGoodsList()
+                }
                 return new Date(Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S).getTime()
                 // return Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S
             },
-            // 60秒倒计时
-            /*getCode() {
-                const TIME_COUNT = 60;
-                if (!this.timer2) {
-                    this.count = TIME_COUNT;
-                    this.timer = setInterval(() => {
-                        if (this.count > 0 && this.count <= TIME_COUNT) {
-                            this.count--;
-                        } else {
-                            this.show = true;
-                            clearInterval(this.timer);
-                            this.timer = null;
-                        }
-                    }, 1000)
-                }
-            },*/
             // 首页list
             getGoodsList() {
                 this.$fetch('api?m=Api&c=Goods&a=goodsList',
@@ -359,13 +340,16 @@
                     this.GoodsList = result.goods_list
                 })
             },
-            // 抢购
-            rushOrder(item) {
+            // 抢购 预约
+            rushOrder(item, type) {
+                // 预约过的 不能抢
+                if (item.order_on == 1) return
                 this.$post('api?m=api&c=Order&a=add_order_jin', {
-                    token: localStorage.getItem("token"), goods_id: item.goods_id
+                    token: JSON.parse(window.localStorage.getItem('userinfo')).token,
+                    goods_id: item.goods_id,
+                    type: type
                 }).then(({result}) => {
-                    // 处理获取成功的文子
-                    console.log(result)
+                    this.getGoodsList()
                 })
             }
         },
