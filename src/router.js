@@ -36,6 +36,21 @@ export default new Router({
       component: () => import('./views/SystemMessage.vue')
     },
     {
+      path: '/ar',
+      name: 'AdoptRecord',
+      component: () => import('./views/AdoptRecord.vue')
+    },
+    {
+      path: '/rr',
+      name: 'ReservationRecord',
+      component: () => import('./views/ReservationRecord.vue')
+    },
+    {
+      path: '/tr',
+      name: 'TransferRecord',
+      component: () => import('./views/TransferRecord.vue')
+    },
+    {
       path: '/register',
       name: 'register',
       component: () => import('./views/register.vue')
@@ -60,7 +75,7 @@ export default new Router({
       name: 'bst',
       component: () => import('./views/bst.vue')
     },
-  {
+    {
       path: '/myCard',
       name: 'myCard',
       component:  () => import('./views/myCard.vue')

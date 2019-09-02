@@ -45,6 +45,7 @@ export default {
   methods: {
     getService() {
       const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+      console.log(userinfo)
       this.$post("/api?m=api&c=user&a=userkefu", {
         token: userinfo.token
       }).then(res => {
