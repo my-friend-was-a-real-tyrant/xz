@@ -1,13 +1,13 @@
 <template>
     <div class="password" :style="height">
-        <div class="header"><div class="top-left"><a href="javascript:;" onclick="javascript:history.go(-1);return false;" title="后退"><div class="return"><img src="static/img/return.png"></div></a></div><div class="top-m">忘记密码</div></div>
+        <div class="header"><div class="top-left"><a href="javascript:;" @click="back" title="后退"><div class="return"><img src="@/assets/img/return.png"></div></a></div><div class="top-m">忘记密码</div></div>
 
         <div class="login-form"><ul>
-            <li><div class="ipt"><span class="ico"><img src="static/img/d2.png"></span>
+            <li><div class="ipt"><span class="ico"><img src="@/assets/img/d2.png"></span>
                 <input type="text" v-model="mobile" placeholder="请输入手机号"></div></li>
-            <li><div class="ipt"><span class="ico"><img src="static/img/d4.png"></span>
+            <li><div class="ipt"><span class="ico"><img src="@/assets/img/d4.png"></span>
                 <input type="text" v-model="code" placeholder="请输入验证码" style="width:120px;"><div class="send-code" @click="sendcode">发送验证码</div></div></li>
-            <li><div class="ipt"><span class="ico"><img src="static/img/d3.png"></span>
+            <li><div class="ipt"><span class="ico"><img src="@/assets/img/d3.png"></span>
                 <input type="text" v-model="password" placeholder="请输入新密码"></div></li>
             <li><div class="submit"><input type="submit" value="确认" @click="submit"></div></li>
         </ul></div>
@@ -36,6 +36,9 @@
         }
         this.height = `height:${height}px`
       },
+        back  () {
+            this.$router.replace('/login')
+        },
       sendcode () {
         this.$post('/api?m=Home&c=Api&a=send_validate_code', {
           mobile: this.mobile,
