@@ -51,7 +51,7 @@
         <li>
           <router-link to="/ar">
             <img src="@/assets/img/p4.png" />
-            <p>领养记录</p>
+            <p>抢购记录</p>
           </router-link>
         </li>
         <li>
@@ -136,7 +136,7 @@ export default {
     getUserInfo() {
       const userinfo = JSON.parse(localStorage.getItem("userinfo"));
       this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
-        ({ result }) => {
+        ( {result} ) => {
           this.userInfo = result;
         }
       );

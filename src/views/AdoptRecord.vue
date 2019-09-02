@@ -21,133 +21,26 @@
       <div class="content">
         <ul v-if="navIndex == 0">
           <div class="bst-txt">
-            <h1>
-              区块星座编号：
-              <span id>TP000000001</span>
-            </h1>
-            <div class="titles">
-              星座名称：
-              <span style="color:#fff">幸运水瓶座</span>
-            </div>
-            <div class="titles">
-              星座价值：
-              <span style="color:#fff">100-300</span>
-            </div>
-            <div class="ipt">
-              <input type="submit" value="抢购" />
-            </div>
-          </div>
-          <div class="bst-txt">
-            <h1>
-              区块星座编号：
-              <span id>TP000000001</span>
-            </h1>
-            <div class="titles">
-              星座名称：
-              <span style="color:#fff">幸运水瓶座</span>
-            </div>
-            <div class="titles">
-              星座价值：
-              <span style="color:#fff">100-300</span>
-            </div>
-            <div class="ipt">
-              <input type="submit" value="抢购" />
-            </div>
-          </div>
-          <div class="bst-txt">
-            <h1>
-              区块星座编号：
-              <span id>TP000000001</span>
-            </h1>
-            <div class="titles">
-              星座名称：
-              <span style="color:#fff">幸运水瓶座</span>
-            </div>
-            <div class="titles">
-              星座价值：
-              <span style="color:#fff">100-300</span>
-            </div>
-            <div class="ipt">
-              <input type="submit" value="抢购" />
-            </div>
-          </div>
+            <h1>区块星座编号：<span id="">TP000000001</span></h1>
+          <div class="titles">星座名称：<span style="color:#fff">幸运水瓶座</span></div>
+          <div class="titles">星座价值：<span style="color:#fff">100-300</span></div>
+          <div class="ipt"><input type="submit" value="抢购"></div>
+        </div>
         </ul>
         <ul  v-if="navIndex == 1">
           <div class="reservation">
             <li>
-              <div class="left">
-                <h1>幸运白羊座（未抢中）</h1>
-                <p class="time">2019-07-16 11:13:56</p>
-              </div>
-              <div class="center">
-                <p class="nu">2</p>
-                <p>花费积分</p>
-              </div>
-              <div class="right">
-                <div class="bbuu">查看</div>
-              </div>
-            </li>
-          </div>
-          <div class="reservation">
-            <li>
-              <div class="left">
-                <h1>幸运白羊座（未抢中）</h1>
-                <p class="time">2019-07-16 11:13:56</p>
-              </div>
-              <div class="center">
-                <p class="nu">2</p>
-                <p>花费积分</p>
-              </div>
-              <div class="right">
-                <div class="bbuu">查看</div>
-              </div>
-            </li>
-          </div>
-          <div class="reservation">
-            <li>
-              <div class="left">
-                <h1>幸运白羊座（未抢中）</h1>
-                <p class="time">2019-07-16 11:13:56</p>
-              </div>
-              <div class="center">
-                <p class="nu">2</p>
-                <p>花费积分</p>
-              </div>
-              <div class="right">
-                <div class="bbuu">查看</div>
-              </div>
+              <div class="left"><h1>幸运白羊座</h1><p class="time">2019-07-16  11:13:56</p></div>
+              <div class="center"><p class="nu">2</p><p>花费积分</p></div>
+              <div class="right"><router-link to="/ra"><div class="bbuu">查看</div></router-link></div>
             </li>
           </div>
         </ul>
         <ul  v-if="navIndex == 2">
           <div class="reservation">
             <li>
-              <div class="left">
-                <h1>幸运白羊座（未抢中）</h1>
-                <p class="time">2019-07-16 11:13:56</p>
-              </div>
-              <div class="center">
-                <p class="nu">2</p>
-                <p>花费积分</p>
-              </div>
-              <div class="right">
-                <div class="bbuu">申诉</div>
-              </div>
-            </li>
-          </div>
-          <div class="reservation">
-            <li>
-              <div class="left">
-                <h1>幸运白羊座（未抢中）</h1>
-                <p class="time">2019-07-16 11:13:56</p>
-              </div>
-              <div class="center">
-                <p class="nu">2</p>
-                <p>花费积分</p>
-              </div>
-              <div class="right">
-                <div class="bbuu">申诉</div>
-              </div>
+              <div class="left"><h1>幸运白羊座（未确认）</h1><p class="time">2019-07-16  11:13:56</p></div>
+              <div class="right"><router-link to="/aa"><div class="bbuu">申诉</div></router-link></div>
             </li>
           </div>
         </ul>

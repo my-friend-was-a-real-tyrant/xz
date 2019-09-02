@@ -41,6 +41,16 @@ export default new Router({
       component: () => import('./views/AdoptRecord.vue')
     },
     {
+      path: '/ra',
+      name: 'RecordArticle',
+      component: () => import('./views/RecordArticle.vue')
+    },
+    {
+      path: '/aa',
+      name: 'AppealArticle',
+      component: () => import('./views/AppealArticle.vue')
+    },
+    {
       path: '/rr',
       name: 'ReservationRecord',
       component: () => import('./views/ReservationRecord.vue')
