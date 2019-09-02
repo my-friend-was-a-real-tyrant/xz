@@ -21,9 +21,13 @@
                             <div class="txt1"><img :src="_imgUrl+item.goods_images"></div>
                             <div class="txt2"><img src="@/assets/img/x1s.png">
                                 <p>{{item.goods_name}}</p>
-                                <div class="bt" v-if="realTime.H==11&&realTime.Min>0&&realTime.Min<29">预约</div>
-                                <div class="bt " v-else-if="realTime.H==11&&realTime.Min>=29&&realTime.Min<30">倒计时{{count}}</div>
-                                <div class="bt on2" @click="rushOrder(item)" v-else-if="realTime.H==11&&realTime.Min>=30&&realTime.Min<32">开抢</div>
+                                <div class="bt" v-if="showTime<item.start_time_unix">预约</div>
+                                <div class="bt " v-else-if="showTime>item.start_time_unix&&showTime<(item.end_time_unix-60*60)">
+                                    倒计时{{count}}
+                                </div>
+                                <div class="bt on2" @click="rushOrder(item)"
+                                     v-else-if="showTime>(item.end_time_unix)&&showTime<(item.end_time_unix+60*60)">开抢
+                                </div>
                                 <div class="bt on1" v-else>蜕变中</div>
                                 --
                             </div>
@@ -281,10 +285,12 @@
         },
         data() {
             return {
-                GoodsList: '',
+                showTime: '',
+                GoodsList: [],
                 realTime: '',
                 totalTime: 60,
-                count:'',
+                count: '',
+                thisTime: '',
                 timer2: null,
                 timer1: null
             }
@@ -292,23 +298,35 @@
         created() {
             this.getGoodsList()
         },
+        computed: {
 
+        },
         mounted() {
-            // 页面加载完后显示当前时间
-            this.realTime = dealWithTime(new Date())
-            // 定时刷新时间
-            let _this = this
-            // 定时器
-            this.timer1 = setInterval(function () {
-                _this.realTime = dealWithTime(new Date()) // 修改数据date
-                if (_this.realTime.H==11&&_this.realTime.Min>=29&&_this.realTime.Min<30) {
-                    _this.getCode()
-                }
-            }, 1000)
-
+            // this.timer1 = setInterval( ()=>{
+            //     console.log(this.showTime())
+            //     this.thisTime=  this.showTime
+            // }, 1000)
+            this.compareTime()
+            // this.getCode()
             // if(this.)
         },
         methods: {
+            compareTime () {
+                let timer1 = setInterval(() => {
+                    this.showTime = this.getCurrentTime()
+                }, 1000)
+            },
+            getCurrentTime: function () {
+                let data = new Date()
+                let Y = data.getFullYear()
+                let M = data.getMonth() + 1
+                let D = data.getDate()
+                let H = data.getHours()
+                let Min = data.getMinutes()
+                let S = data.getSeconds()
+                return new Date(Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S).getTime()
+                // return Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S
+            },
             // 60秒倒计时
             getCode() {
                 const TIME_COUNT = 60;
@@ -327,14 +345,15 @@
             },
             // 首页list
             getGoodsList() {
-                this.$fetch('api?m=Api&c=Goods&a=goodsList').then(({result}) => {
+                this.$fetch('api?m=Api&c=Goods&a=goodsList',
+                    {token: JSON.parse(window.localStorage.getItem('userinfo')).token}).then(({result}) => {
                     this.GoodsList = result.goods_list
                 })
             },
             // 抢购
-            rushOrder(item){
-                this.$post('api?m=api&c=Order&a=add_order_jin',{
-                    token:localStorage.getItem("token"),goods_id:item.goods_id
+            rushOrder(item) {
+                this.$post('api?m=api&c=Order&a=add_order_jin', {
+                    token: localStorage.getItem("token"), goods_id: item.goods_id
                 }).then(({result}) => {
                     // 处理获取成功的文子
                     console.log(result)
