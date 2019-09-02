@@ -299,16 +299,26 @@
             this.getGoodsList()
         },
         computed: {
-
+            // 倒计时方法
+            getCode() {
+                const TIME_COUNT = 60;
+                if (!this.timer2) {
+                    this.count = TIME_COUNT;
+                    this.timer = setInterval(() => {
+                        if (this.count > 0 && this.count <= TIME_COUNT) {
+                            this.count--;
+                            return this.count
+                        } else {
+                            this.show = true;
+                            clearInterval(this.timer);
+                            this.timer = null;
+                        }
+                    }, 1000)
+                }
+            },
         },
         mounted() {
-            // this.timer1 = setInterval( ()=>{
-            //     console.log(this.showTime())
-            //     this.thisTime=  this.showTime
-            // }, 1000)
             this.compareTime()
-            // this.getCode()
-            // if(this.)
         },
         methods: {
             compareTime () {
@@ -328,7 +338,7 @@
                 // return Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S
             },
             // 60秒倒计时
-            getCode() {
+            /*getCode() {
                 const TIME_COUNT = 60;
                 if (!this.timer2) {
                     this.count = TIME_COUNT;
@@ -342,7 +352,7 @@
                         }
                     }, 1000)
                 }
-            },
+            },*/
             // 首页list
             getGoodsList() {
                 this.$fetch('api?m=Api&c=Goods&a=goodsList',
@@ -359,6 +369,16 @@
                     console.log(result)
                 })
             }
+        },
+        beforeDestroy() {
+            //清除定时器
+            clearInterval(this.timer1);
+            clearInterval(this.timer2);
+        },
+        destroyed() {
+            //清除定时器
+            clearInterval(this.timer1);
+            clearInterval(this.timer2);
         }
     }
 </script>
