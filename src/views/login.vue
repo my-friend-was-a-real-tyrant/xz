@@ -1,13 +1,13 @@
 <template>
     <div class="login" :style="height">
-        <div class="top-logo"><img src="../assets/img/d1.png"></div>
+        <div class="top-logo"><img src="@/assets/img/d1.png"></div>
 
         <div class="login-form"><ul>
-            <li><div class="ipt"><span class="ico"><img src="../assets/img/d2.png"></span><input type="text" v-model="mobile" placeholder="请输入手机号"></div></li>
-            <li><div class="ipt"><span class="ico"><img src="../assets/img/d3.png"></span><input type="text" v-model="password" placeholder="请输入密码"></div></li>
+            <li><div class="ipt"><span class="ico"><img src="@/assets/img/d2.png"></span><input type="text" v-model="mobile" placeholder="请输入手机号"></div></li>
+            <li><div class="ipt"><span class="ico"><img src="@/assets/img/d3.png"></span><input type="text" v-model="password" placeholder="请输入密码"></div></li>
             <!--<li><div class="ipt"><span class="ico"><img src="../assets/img/d4.png"></span><input type="text" value="" placeholder="请输入验证码" style="width:120px;"><div class="imgcode"><img src="static/img/cod.jpg"></div></div></li>-->
             <li><div class="submit"><input type="submit" value="确定" @click="login"></div></li>
-            <li><div class="left"><a href="#">忘记密码？</a></div><div class="right">
+            <li><div class="left"><a href="#" @click="setPassword">忘记密码？</a></div><div class="right">
                 <a href="#">没有账号？<span @click="register">立即创建一个</span></a></div></li>
         </ul></div>
 
@@ -37,6 +37,9 @@
       register () {
         this.$router.push('/register')
       },
+        setPassword () {
+            this.$router.push('/password')
+        },
       heightInit () {
         let height
         if (document.body.offsetHeight > window.screen.height) {

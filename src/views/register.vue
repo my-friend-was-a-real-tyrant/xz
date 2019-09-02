@@ -1,5 +1,5 @@
 <template>
-    <div class="register">
+    <div class="register" :style="height">
         <div class="top-logo"><img src="../assets/img/d1.png"></div>
 
         <div class="login-form">
@@ -39,6 +39,7 @@
     name: "register",
     data () {
       return {
+          height: '',
         randomString: 'fdjsfjsdlfjoewj',
         mobile: '',
         password1: '',
@@ -71,6 +72,16 @@
           }
         })
       },
+        heightInit () {
+            let height
+            if (document.body.offsetHeight > window.screen.height) {
+                height = document.body.offsetHeight
+            } else {
+                height = window.screen.height
+            }
+            console.log(height, document.body.offsetHeight, window.screen.height)
+            this.height = `height:${height}px`
+        },
       sendAuthCode () {
         if (!this.mobile) {
           this.Toast('手机号未填')
@@ -84,7 +95,10 @@
           this.Toast(res.msg)
         })
       }
-    }
+    },
+      mounted() {
+        this.heightInit()
+      }
   }
 </script>
 
@@ -94,7 +108,7 @@
         /*position: absolute;*/
         /*top: 0;*/
         /*bottom: 0;*/
-        /*width: 100%;*/
+        width: 100%;
         background:url(../assets/img/dd2.jpg) center repeat-y;
     }
 </style>

@@ -76,6 +76,16 @@ export default new Router({
       component: () => import('./views/bst.vue')
     },
     {
+      path: '/jifen',
+      name: 'jifen',
+      component: () => import('./views/jifen.vue')
+    },
+    {
+      path: '/setPay',
+      name: 'setPay',
+      component: () => import('./views/set-pay.vue')
+    },
+  {
       path: '/myCard',
       name: 'myCard',
       component:  () => import('./views/myCard.vue')
