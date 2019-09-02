@@ -123,7 +123,6 @@ export default {
     },
     getAllMessage(){
         this.$post('/api?m=api&c=user&a=messagelist').then( (res) => {
-            console.log(res)
             if(res.status == 1){
                 this.allMessage = res.result
             }else{
@@ -133,7 +132,6 @@ export default {
     },
     getSystemMessage(){
         this.$post('/api?m=api&c=user&a=messagelist',{cat_id: 1}).then( (res) => {
-            console.log(res)
             if(res.status == 1){
                 this.systemMessage = res.result
             }else{
@@ -143,7 +141,6 @@ export default {
     },
     getActivityMessage(){
         this.$post('/api?m=api&c=user&a=messagelist',{cat_id: 2}).then( (res) => {
-            console.log(res)
             if(res.status == 1){
                 this.activityMessage = res.result
             }else{
