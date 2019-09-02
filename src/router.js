@@ -95,6 +95,11 @@ export default new Router({
       name: 'setPay',
       component: () => import('./views/set-pay.vue')
     },
+    {
+      path: '/givePoints',
+      name: 'givePoints',
+      component: () => import('./views/give-points.vue')
+    },
   {
       path: '/myCard',
       name: 'myCard',
