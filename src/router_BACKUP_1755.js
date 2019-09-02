@@ -21,21 +21,6 @@ export default new Router({
       component: ServiceCenter
     },
     {
-      path: '/os',
-      name: 'OnlineService',
-      component: () => import('./views/OnlineService.vue')
-    },
-    {
-      path: '/wo',
-      name: 'WorkOrder',
-      component: () => import('./views/WorkOrder.vue')
-    },
-    {
-      path: '/sm',
-      name: 'SystemMessage',
-      component: () => import('./views/SystemMessage.vue')
-    },
-    {
       path: '/register',
       name: 'register',
       component: () => import('./views/register.vue')
@@ -51,6 +36,7 @@ export default new Router({
       component: MyWallet
     },
     {
+<<<<<<< HEAD
       path: '/password',
       name: 'password',
       component: () => import('./views/set-password.vue')
@@ -59,11 +45,11 @@ export default new Router({
       path: '/bst',
       name: 'bst',
       component: () => import('./views/bst.vue')
-    },
-  {
+=======
       path: '/myCard',
       name: 'myCard',
       component:  () => import('./views/myCard.vue')
+>>>>>>> f87180cb463a8409d4c94e92f98a706f55c9cf9c
     },
     {
       path:'*',
