@@ -22,7 +22,7 @@
                             <div class="txt2"><img src="@/assets/img/x1s.png">
                                 <p>{{item.goods_name}}</p>
                                 <!--is_on_sale 上架 order_on 预约-->
-                                <div v-if="is_on_sale">
+                                <div v-if="item.is_on_sale">
                                     <div class="bt" v-if="showTime<item.start_time_unix" @click="rushOrder(item,1)">
                                         {{item.order_on==0?"预约":"预约中"}}
                                     </div>
