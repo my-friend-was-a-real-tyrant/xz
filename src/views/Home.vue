@@ -11,7 +11,7 @@
                                     class="c2">{{item.shop_price}}-{{item.market_price}}</span></p>
                             <p><span class="c1">领养时间：</span><span
                                     class="c2">{{item.start_time}}-{{item.end_time}}</span></p>
-                            <p><span class="c1">预约/即抢领养积分：</span><span class="c2">{{item.spu}}/{{item.sku}}</span></p>
+                            <p><span class="c1">预约/即抢积分：</span><span class="c2">{{item.spu}}/{{item.sku}}</span></p>
                             <p><span class="c1">智能合约收益：</span><span
                                     class="c2">{{item.order_day}}天/{{item.order_rate}}%</span></p>
                             <p><span class="c1">可挖LUCKY：</span><span class="c2">{{item.can_lucky}}枚</span></p>
