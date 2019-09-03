@@ -134,12 +134,12 @@ export default {
   },
   methods: {
     getUserInfo() {
-      const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+
       this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
-        ( {result} ) => {
-          this.userInfo = result;
-        }
-      );
+          ( {result} ) => {
+            this.userInfo = result;
+          }
+        );
     }
   }
 };
