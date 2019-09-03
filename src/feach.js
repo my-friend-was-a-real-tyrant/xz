@@ -43,10 +43,12 @@ instance.interceptors.response.use(
         // }
         // if () {}
         console.log(response)
-      if (response.data.status == 101) {
+      if (response.data.status == -101) {
         router.replace('/login')
+      } else {
+        return response
       }
-        return response;
+        // return response;
     },
     error => {
         return Promise.reject(error)
