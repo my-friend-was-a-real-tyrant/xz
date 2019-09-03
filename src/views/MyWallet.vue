@@ -134,18 +134,12 @@ export default {
   },
   methods: {
     getUserInfo() {
-      const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-      if(!userinfo.token){
-        // 跳登录
-          this.$router.replace('/login')
-      }else{
-        this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
+
+      this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
           ( {result} ) => {
             this.userInfo = result;
           }
         );
-      }
-      
     }
   }
 };
