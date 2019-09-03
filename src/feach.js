@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs'
+import router from './router'
 // import { Message } from 'element-ui';
 var instance = axios.create({
     // baseURL: 'https://api.dzccn.com/index.php',
@@ -22,7 +23,7 @@ instance.interceptors.request.use(
         // if(token){
         //   config.params = {'token':token}
         // }
-        
+
         return config;
     },
     error => {
@@ -40,6 +41,11 @@ instance.interceptors.response.use(
         //         querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
         //     })
         // }
+        // if () {}
+        console.log(response)
+      if (response.data.status == 101) {
+        router.replace('/login')
+      }
         return response;
     },
     error => {
