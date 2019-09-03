@@ -109,7 +109,8 @@ export default {
         navIndex: 0,
         allMessage:[],
         systemMessage:[],
-        activityMessage:[]
+        activityMessage:[],
+         userinfo: JSON.parse(localStorage.getItem('userinfo'))||{}
     };
   },
   created(){
@@ -122,7 +123,7 @@ export default {
         this.navIndex = index
     },
     getAllMessage(){
-        this.$post('/api?m=api&c=user&a=messagelist').then( (res) => {
+        this.$post(`/api?m=api&c=user&a=messagelist&token=${this.userinfo.token}`).then( (res) => {
             if(res.status == 1){
                 this.allMessage = res.result
             }else{
@@ -131,7 +132,7 @@ export default {
         })
     },
     getSystemMessage(){
-        this.$post('/api?m=api&c=user&a=messagelist',{cat_id: 1}).then( (res) => {
+        this.$post(`/api?m=api&c=user&a=messagelist&token=${this.userinfo.token}`).then( (res) => {
             if(res.status == 1){
                 this.systemMessage = res.result
             }else{
@@ -140,7 +141,7 @@ export default {
         })
     },
     getActivityMessage(){
-        this.$post('/api?m=api&c=user&a=messagelist',{cat_id: 2}).then( (res) => {
+        this.$post(`/api?m=api&c=user&a=messagelist&token=${this.userinfo.token}`,{cat_id: 2}).then( (res) => {
             if(res.status == 1){
                 this.activityMessage = res.result
             }else{
