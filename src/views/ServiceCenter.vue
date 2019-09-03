@@ -33,6 +33,13 @@ export default {
   components: {
     PageHeader,
     PageFooter
+  },
+  created(){
+     const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+      if(!userinfo.token){
+          // 跳登录
+          this.$router.replace('/login')
+      }
   }
 }
 </script>
