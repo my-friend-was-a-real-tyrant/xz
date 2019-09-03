@@ -84,10 +84,10 @@
           </a>
         </li>
         <li>
-          <a href="/myCard">
+          <router-link to="/myCard">
             <img src="@/assets/img/p9.png" />
             <p>我的银行卡</p>
-          </a>
+          </router-link>
         </li>
         <li>
           <a href="#">
