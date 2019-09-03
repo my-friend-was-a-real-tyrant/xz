@@ -10,8 +10,8 @@
       </div>
       <div class="top-m">我的钱包</div>
       <div class="top-set">
-        <a href="#">
-          <img src="@/assets/img/p2.png" />
+        <a href="#" @click="logout">
+          <img src="@/assets/img/logout.png" />
         </a>
       </div>
     </div>
@@ -117,7 +117,8 @@
 <script>
 import PageHeader from "@/components/PageHeader.vue";
 import PageFooter from "@/components/PageFooter.vue";
-
+// let userinfo = {}
+// userinfo = JSON.parse(localStorage.getItem('userinfo'))
 export default {
   name: "myWallet",
   components: {
@@ -133,13 +134,22 @@ export default {
     this.getUserInfo();
   },
   methods: {
+    logout () {
+      this.$fetch(`api?m=api&c=user&a=logout&token=${this.userInfo.token}`).then(res => {
+        this.Toast(res.msg)
+        if (res.status == 1) {
+          this.$router.replace('/login')
+        }
+      })
+    },
     getUserInfo() {
 
-      this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
-          ( {result} ) => {
-            this.userInfo = result;
-          }
-        );
+      this.userInfo = JSON.parse(localStorage.getItem('userinfo'))
+      // this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
+      //     ( {result} ) => {
+      //       this.userInfo = result;
+      //     }
+      //   );
     }
   }
 };
