@@ -33,7 +33,7 @@
                     <div v-if="!cardInfoList.alipay_code" class="ipt" style="text-align:center;padding:20px 0;">
                         <van-uploader v-model="fileList" multiple :max-count="1" :before-read="sendInfo"
                                       :after-read="onRead">
-                            <img src="@/assets/img/ewm.jpg">
+                            <img src="@/assets/img/uploads.png">
                         </van-uploader>
                     </div>
                     <div class="ipt" v-else style="text-align:center;padding:20px 0;"><img
@@ -57,7 +57,7 @@
                     <div v-if="!cardInfoList.wx_code" class="ipt" style="text-align:center;padding:20px 0;">
                         <van-uploader v-model="fileList" multiple :max-count="1"
                                       :after-read="onRead">
-                            <img src="@/assets/img/ewm.jpg">
+                            <img src="@/assets/img/uploads.png">
                         </van-uploader>
                     </div>
                     <div class="ipt" v-else style="text-align:center;padding:20px 0;"><img
@@ -101,7 +101,7 @@
                     <div class="titles">收款人</div>
                     <div class="ipt"><input type="text" name="" value="王小二"></div>
                     <div class="titles">收款二维码</div>
-                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/ewm.jpg"></div>
+                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/uploads.png"></div>
                 </div>
             </div>
 
@@ -116,7 +116,7 @@
                     <div class="titles">收款人</div>
                     <div class="ipt"><input type="text" name="" value="王小二"></div>
                     <div class="titles">收款二维码</div>
-                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/ewm.jpg"></div>
+                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/uploads.png"></div>
                 </div>
             </div>
 
@@ -179,7 +179,7 @@
         methods: {
             // 获取默认值
             getInfoList() {
-                this.$post('api?m=api&c=user&a=getinfoList', {token: localStorage.getItem("token")}).then(({result}) => {
+                this.$post('api?m=api&c=user&a=getinfoList', {token:JSON.parse(localStorage.getItem('userinfo')||{}).token}).then(({result}) => {
                     console.log(result);
                     this.cardInfoList = result
                 })
