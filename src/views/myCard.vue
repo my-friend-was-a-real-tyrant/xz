@@ -188,7 +188,7 @@
             // 提交最后一步
             postCardAlinfo(data) {
                 this.$post('api/?m=api&c=user&a=upload_allinfo', {
-                    token: JSON.parse(window.localStorage.getItem('userinfo')).token, ...data
+                    token: JSON.parse(window.localStorage.getItem('userinfo') || {}).token, ...data
                 }).then(res => {
                     this.getInfoList()
                 })

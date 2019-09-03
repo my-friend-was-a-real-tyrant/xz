@@ -144,7 +144,7 @@ export default {
     },
     getUserInfo() {
 
-      this.userInfo = JSON.parse(localStorage.getItem('userinfo'))
+      this.userInfo = JSON.parse(localStorage.getItem('userinfo'))||{}
       // this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
       //     ( {result} ) => {
       //       this.userInfo = result;

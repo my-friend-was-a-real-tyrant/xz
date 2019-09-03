@@ -71,7 +71,7 @@
       }
     },
     mounted() {
-      this.userinfo = JSON.parse(localStorage.getItem('userinfo'))
+      this.userinfo = JSON.parse(localStorage.getItem('userinfo'))||{}
     }
   }
 </script>

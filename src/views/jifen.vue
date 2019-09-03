@@ -88,7 +88,7 @@ export default {
   },
   mounted () {
 
-    this.userinfo = JSON.parse(localStorage.getItem('userinfo'))
+    this.userinfo = JSON.parse(localStorage.getItem('userinfo'))||{}
     this.getList()
   },
 name: "jifen"

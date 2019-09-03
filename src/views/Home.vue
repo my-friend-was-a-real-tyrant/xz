@@ -73,15 +73,17 @@
                 count: '',
                 thisTime: '',
                 timer2: null,
-                timer1: null
+                timer1: null,
+                userinfo:{}
             }
         },
         created() {
-            this.getGoodsList()
+            this.userinfo = JSON.parse(localStorage.getItem('userinfo')) || {}
         },
         computed: {},
         mounted() {
             this.compareTime()
+            this.getGoodsList()
         },
         methods: {
             // 当前时间
@@ -107,7 +109,7 @@
             // 首页list
             getGoodsList() {
                 this.$fetch('api?m=Api&c=Goods&a=goodsList',
-                    {token: JSON.parse(window.localStorage.getItem('userinfo')).token}).then(({result}) => {
+                    {token: this.userinfo.token}).then(({result}) => {
                     this.GoodsList = result.goods_list
                 })
             },
@@ -116,7 +118,7 @@
                 // 预约过的 不能抢
                 if (item.order_on == 1) return
                 this.$post('api?m=api&c=Order&a=add_order_jin', {
-                    token: JSON.parse(window.localStorage.getItem('userinfo')).token,
+                    token: this.userinfo.token,
                     goods_id: item.goods_id,
                     type: type
                 }).then(({result}) => {
@@ -133,7 +135,7 @@
             //清除定时器
             clearInterval(this.timer1);
             clearInterval(this.timer2);
-        }
+        },
     }
 </script>
 <style lang="scss" scoped>
