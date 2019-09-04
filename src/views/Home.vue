@@ -23,13 +23,39 @@
                                 <p>{{item.goods_name}}</p>
                                 <!--is_on_sale 上架 order_on 预约-->
                                 <div v-if="item.is_on_sale">
+                                    <div class="bt" v-if="showTime<(item.start_time_unix-60*1000)" @click="rushOrder(item,1)">
+                                        {{item.order_on==0?"预约":"预约中"}}
+                                    </div>
+                                    <div class="bt on2" @click="rushOrder(item,1)"
+                                         v-else-if="showTime>(item.start_time_unix-60*1000)&&showTime<(item.start_time_unix)">
+                                        <span v-if="item.order_on!==1">
+                                            倒计时{{parseInt((item.start_time_unix-showTime)/60000)}}
+                                        </span>
+                                        <span v-else>
+                                            预约中
+                                        </span>
+                                    </div>
+                                    <div class="bt " @click="rushOrder(item,2)"
+                                         v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix)">
+                                        {{item.order_on==1?'蜕变中':item.order_on==2?'抢购成功':'抢购'}}
+                                    </div>
+                                    <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
+                                </div>
+                                <div class="bt on1" v-else>蜕变中</div>
+                                --
+                            </div>
+<!--
+                            <div class="txt2"><img src="@/assets/img/x1s.png">
+                                <p>{{item.goods_name}}</p>
+                                &lt;!&ndash;is_on_sale 上架 order_on 预约&ndash;&gt;
+                                <div v-if="item.is_on_sale">
                                     <div class="bt" v-if="showTime<item.start_time_unix" @click="rushOrder(item,1)">
                                         {{item.order_on==0?"预约":"预约中"}}
                                     </div>
                                     <div class="bt on2" @click="rushOrder(item,2)"
                                          v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix-60*1000)">
                                         <span></span>
-                                        <!--                                        {{item.order_on==2?'抢购成功':'抢购'}}-->
+                                        &lt;!&ndash;                                        {{item.order_on==2?'抢购成功':'抢购'}}&ndash;&gt;
                                         {{item.order_on==1?'蜕变中':item.order_on==2?'抢购成功':'抢购'}}
                                     </div>
                                     <div class="bt "
@@ -40,15 +66,14 @@
                                     <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
                                 </div>
                                 <div class="bt on1" v-else>蜕变中</div>
-                                --
+                                &#45;&#45;
                             </div>
+-->
                         </div>
                     </div>
                 </li>
-
             </ul>
         </div>
-
         <PageFooter/>
     </div>
 </template>
