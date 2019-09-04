@@ -72,7 +72,7 @@
     <div class="wallet-b">
       <ul>
         <li>
-          <a href="#">
+          <a href="#" @click="goSetPay">
             <img src="@/assets/img/p7.png" />
             <p>安全中心</p>
           </a>
@@ -90,7 +90,7 @@
           </router-link>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="goMyteam">
             <img src="@/assets/img/p10.png" />
             <p>我的团队</p>
           </a>
@@ -134,6 +134,9 @@ export default {
     this.getUserInfo();
   },
   methods: {
+    goMyteam () {
+      this.$router.replace('/mt')
+    },
     goGtc () {
       this.$router.replace('/bst')
     },
@@ -145,6 +148,9 @@ export default {
     },
     goInvite () {
       this.$router.replace('/invite')
+    },
+    goSetPay () {
+      this.$router.replace('/setPay')
     },
     logout () {
       this.$fetch(`api?m=api&c=user&a=logout&token=${this.userInfo.token}`).then(res => {

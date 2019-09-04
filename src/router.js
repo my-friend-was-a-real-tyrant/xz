@@ -86,6 +86,11 @@ export default new Router({
       component: MyWallet
     },
     {
+      path: '/mt',
+      name: 'mt',
+      component: () => import('./views/my-team.vue')
+    },
+    {
       path: '/password',
       name: 'password',
       component: () => import('./views/set-password.vue')

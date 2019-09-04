@@ -65,7 +65,7 @@
         }).then(res => {
           this.Toast(res.msg)
           if (res.status == 1) {
-            this.back()
+            // this.back()
           }
         })
       }
