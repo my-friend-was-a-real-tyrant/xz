@@ -65,9 +65,15 @@ export default {
     PageFooter
   },
   data() {
-    return {};
+    return {
+      orderid: '',
+      userinfo: {},
+    };
   },
-  created() {},
+  created() {
+    this.orderid = localStorage.getItem('arorderid') || '';
+    this.userinfo = JSON.parse(localStorage.getItem('userinfo')) || {}
+  },
   methods: {}
 };
 </script>

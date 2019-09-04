@@ -10,7 +10,7 @@
       </div>
       <div class="top-m">抢购记录</div>
     </div>
-    <div class="adoption-box">
+    <div class="transfer-box">
       <div class="tab">
           <span v-for="(item, index) in tabNav" :key="index">
                <a :class="navIndex == index  ? 'on' : ''" @click="switchTab(index)">
@@ -20,27 +20,35 @@
       </div>
       <div class="content">
         <ul v-if="navIndex == 0">
-          <div class="bst-txt">
-            <h1>区块星座编号：<span id="">TP000000001</span></h1>
-          <div class="titles">星座名称：<span style="color:#fff">幸运水瓶座</span></div>
-          <div class="titles">星座价值：<span style="color:#fff">100-300</span></div>
-          <div class="ipt"><input type="submit" value="抢购"></div>
+          <div class="bst-txt" v-for="(item, index) in snapList" :key="index">
+            <h1>区块星座编号：<span id="">{{ item.order_sn }}</span></h1>
+          <div class="titles">星座名称：<span style="color:#fff">{{ item.goods_name }}</span></div>
+          <div class="titles">星座价值：<span style="color:#fff">{{ item.price_interval }}</span></div>
+          <div class="ipt"><input type="submit" value="抢购中..." disabled></div>
         </div>
         </ul>
         <ul  v-if="navIndex == 1">
           <div class="reservation">
-            <li>
-              <div class="left"><h1>幸运白羊座</h1><p class="time">2019-07-16  11:13:56</p></div>
-              <div class="center"><p class="nu">2</p><p>花费积分</p></div>
-              <div class="right"><router-link to="/ra"><div class="bbuu">查看</div></router-link></div>
+            <li v-for="(item, index) in beenList" :key="index">
+              <div class="left"><h1>{{ item.goods_name }}</h1><p class="time">{{ item.add_time }}</p></div>
+              <div class="center"><p class="nu">{{ item.points }}</p><p>花费积分</p></div>
+              <div class="right"><a @click="goRa(item.id)"><div class="bbuu">查看</div></a></div>
             </li>
           </div>
         </ul>
         <ul  v-if="navIndex == 2">
           <div class="reservation">
-            <li>
-              <div class="left"><h1>幸运白羊座（未确认）</h1><p class="time">2019-07-16  11:13:56</p></div>
-              <div class="right"><router-link to="/aa"><div class="bbuu">申诉</div></router-link></div>
+            <li v-for="(item, index) in completeList" :key="index">
+              <div class="left"><h1>{{ item.goods_name }}（已完成）</h1><p class="time">{{ item.add_time }}</p></div>
+              <div class="right"><p class="nu">{{ item.order_money }}</p><p>合约价值</p></div>
+            </li>
+          </div>
+        </ul>
+        <ul  v-if="navIndex == 3">
+          <div class="reservation">
+            <li  v-for="(item, index) in brokenList" :key="index">
+              <div class="left"><h1>{{ item.goods_name }}（未确认）</h1><p class="time">{{ item.add_time }}</p></div>
+              <div class="right"><a @click="goAa(item.id)"><div class="bbuu">申诉</div></a></div>
             </li>
           </div>
         </ul>
@@ -64,49 +72,77 @@ export default {
       tabNav: [
         { id: 0, value: "抢购中" },
         { id: 1, value: "已抢购" },
-        { id: 2, value: "取消/申诉" }
-      ]
+        { id: 2, value: "已完成" },
+        { id: 3, value: "投诉" }
+      ],
+      userinfo:{},
+      status: 0,
+      snapList:[],
+      beenList:[],
+      completeList:[],
+      brokenList:[]
     };
   },
-  created() {},
+  created() {
+    this.userinfo = JSON.parse(localStorage.getItem('userinfo')) || {}
+    this.getAdopt()
+  },
   methods: {
+    goRa(orderid){
+      localStorage.setItem('arorderid', orderid)
+      // 跳转详情
+      this.$router.replace('/ra')
+    },
+    goAa(orderid){
+      localStorage.setItem('aaorderid', orderid)
+      this.$router.replace('/aa')
+    },
     switchTab(index) {
       this.navIndex = index;
+      this.status = index;
+      if(this.snapList.length < 1 || this.beenList.length< 1 || this.completeList.legnth <1 || this.brokenList < 1){
+        this.getAdopt()
+      }
+    },
+    getAdopt(){
+      console.log(this.status)
+      const data = {
+        token: this.userinfo.token,
+        status: this.status
+      }
+      this.$post('/api?m=Api&c=Order&a=order_jin_list', data).then( (res)=>{
+          if(res.status === 1){
+            console.log(res)
+              switch(this.status){
+                case 0:
+                  this.snapList = res.result
+                  break;
+                case 1:
+                  this.beenList = res.result
+                  break;
+                case 2:
+                  this.completeList = res.result
+                  break;
+                case 3:
+                  this.brokenList = res.result
+                  break;
+                default:
+                  console.log('没有可查询的列表数据！')
+                  break;
+              }
+          }
+      })
     }
+
   }
 };
 </script>
 <style lang="scss" scoped>
-/*领养记录*/
-.adoption-box {
-  margin: 10px 0;
-  padding: 10px 0px 15px 0px;
-}
-.adoption-box .tab {
-  position: relative;
-  background-color: #553981;
-  text-align: center;
-}
-.adoption-box .tab a {
-  width: 33.333%;
-  color: #fff;
-  text-align: center;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 38px;
-  cursor: pointer;
-}
-.adoption-box .tab a.on {
-  color: #86ccfc;
-  line-height: 35px;
-  border-bottom: #86ccfc 1px solid;
-}
-.adoption-box .content {
-  padding: 10px;
-  color: #fff;
-}
-
+.transfer-box{margin:10px 0;padding:10px 0px 15px 0px;}
+.transfer-box .tab{position:relative;background-color:#553981;text-align:center;}
+.transfer-box .tab a{width:25%;color:#fff;text-align:center;display:inline-block;font-size:14px;font-weight:500;line-height:38px;cursor:pointer;}
+.transfer-box .tab a.on{color:#86ccfc;line-height:35px;border-bottom:#86ccfc 1px solid;}
+.transfer-box .content{padding:10px;color:#fff;}
 .bst-txt {
   background-color: #412c70;
   border-radius: 12px;
