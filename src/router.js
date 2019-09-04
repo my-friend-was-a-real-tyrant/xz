@@ -31,6 +31,16 @@ export default new Router({
       component: () => import('./views/WorkOrder.vue')
     },
     {
+      path: '/shim',
+      name: 'shim',
+      component: () => import('./views/shim.vue')
+    },
+    {
+      path: '/invite',
+      name: 'invite',
+      component: () => import('./views/invite.vue')
+    },
+    {
       path: '/sm',
       name: 'SystemMessage',
       component: () => import('./views/SystemMessage.vue')

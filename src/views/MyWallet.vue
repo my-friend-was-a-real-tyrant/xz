@@ -26,10 +26,10 @@
     <div class="wallet-list">
       <ul>
         <li>
-          <div class="brt">GTC：{{userInfo.user_money}}</div>
+          <div class="brt" @click="goGtc">GTC：{{userInfo.user_money}}</div>
         </li>
         <li>
-          <div class="brt">积分：{{userInfo.pay_points}}</div>
+          <div class="brt" @click="goJifen">积分：{{userInfo.pay_points}}</div>
         </li>
         <li>
           <div class="brt">LUCKY：{{userInfo.lucky_money}}</div>
@@ -78,7 +78,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="goShim">
             <img src="@/assets/img/p8.png" />
             <p>实名认证</p>
           </a>
@@ -96,7 +96,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="goInvite">
             <img src="@/assets/img/p11.png" />
             <p>邀请好友</p>
           </a>
@@ -134,6 +134,18 @@ export default {
     this.getUserInfo();
   },
   methods: {
+    goGtc () {
+      this.$router.replace('/bst')
+    },
+    goJifen () {
+      this.$router.replace('/jifen')
+    },
+    goShim () {
+      this.$router.replace('/shim')
+    },
+    goInvite () {
+      this.$router.replace('/invite')
+    },
     logout () {
       this.$fetch(`api?m=api&c=user&a=logout&token=${this.userInfo.token}`).then(res => {
         this.Toast(res.msg)
