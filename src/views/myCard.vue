@@ -134,39 +134,6 @@
     import PageHeader from '@/components/PageHeader.vue'
     import PageFooter from '@/components/PageFooter.vue'
 
-    var winKey = 'zfb'
-    $(function () {
-        var Accordion = function (el, multiple) {
-            this.el = el || {};
-            this.multiple = multiple || false;
-
-            // Variables privadas
-            var links = this.el.find('.hover-click');
-            // Evento
-            links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-        }
-
-        Accordion.prototype.dropdown = function (e) {
-            var $el = e.data.el,
-                $this = $(this),
-                $next = $this.next();
-            // console.log($this.dataset.key)
-            // console.log($this.get(0).dataset.key)
-            winKey = $this.get(0).dataset.key
-            console.log(winKey)
-            $next.slideToggle();
-            $this.parent().toggleClass('open');
-
-            if (!e.data.multiple) {
-                $el.find('.list-a1').not($next).slideUp().parent().removeClass('open');
-            }
-        }
-        var accordion = new Accordion($('#tabtxt'), false);
-        $('.hover-click2').click(function () {
-            $(this).next(".list-a2").slideToggle();
-            $(this).toggleClass('open2');
-        });
-    });
     export default {
         name: "myCard",
         components: {
@@ -179,10 +146,40 @@
         data() {
             return {
                 cardInfoList: '', fileList: [],
-                dataMsg: {}
+                dataMsg: {},winKey : 'zfb'
             }
         },
         methods: {
+            init(){
+                this.winKey = 'zfb'
+                var Accordion = function (el, multiple) {
+                    this.el = el || {};
+                    this.multiple = multiple || false;
+
+                    // Variables privadas
+                    var links = this.el.find('.hover-click');
+                    // Evento
+                    links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+                }
+                Accordion.prototype.dropdown = function (e) {
+                    var $el = e.data.el,
+                        $this = $(this),
+                        $next = $this.next();
+                    this.winKey = $this.get(0).dataset.key
+                    console.log(this.winKey)
+                    $next.slideToggle();
+                    $this.parent().toggleClass('open');
+
+                    if (!e.data.multiple) {
+                        $el.find('.list-a1').not($next).slideUp().parent().removeClass('open');
+                    }
+                }
+                var accordion = new Accordion($('#tabtxt'), false);
+                $('.hover-click2').click(function () {
+                    $(this).next(".list-a2").slideToggle();
+                    $(this).toggleClass('open2');
+                });
+            },
             // 获取默认值
             getInfoList() {
                 this.$post('api?m=api&c=user&a=getinfoList', {token:JSON.parse(localStorage.getItem('userinfo')||{}).token}).then(({result}) => {
@@ -202,8 +199,7 @@
             // 选择文件前
             sendInfo() {
                 let data = {}
-                console.log(winKey)
-                switch (winKey) {
+                switch (this.winKey) {
                     case 'zfb':
                         if (!this.cardInfoList.alipay_complete) {
                             if (!this.cardInfoList.alipay_account) {
@@ -283,13 +279,11 @@
                         'Content-Type': 'Content-Type:application/x-www-form-urlencoded'
                     }
                 }).then(({result}) => {
-                    if(winKey=='zfb'){
+                    if(this.winKey=='zfb'){
                         fileUrl={alipay_code:result}
                     }else {
                         fileUrl={wx_code:result}
                     }
-                    console.log({...fileUrl, ...this.dataMsg})
-                    debugger
                     this.postCardAlinfo({...fileUrl, ...this.dataMsg})
                 }).catch(err => {
                     alert(err)
@@ -299,6 +293,11 @@
             submitBank() {
 
             }
+        },
+        mounted(){
+            this.$nextTick(()=>{
+                this.init()
+            })
         }
     }
 </script>
