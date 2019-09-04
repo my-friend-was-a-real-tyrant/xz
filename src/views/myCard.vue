@@ -31,7 +31,7 @@
                                             :disabled="cardInfoList.alipay_complete==1"></div>
                     <div class="titles">收款二维码</div>
                     <div v-if="!cardInfoList.alipay_code" class="ipt" style="text-align:center;padding:20px 0;">
-                        <van-uploader v-model="fileList" multiple :max-count="1" :before-read="sendInfo"
+                        <van-uploader  multiple :max-count="1" :before-read="sendInfo"
                                       :after-read="onRead">
                             <img src="@/assets/img/uploads.png">
                         </van-uploader>
@@ -48,14 +48,14 @@
                 </div>
                 <div class="list-a1" style="display:none;">
                     <div class="titles">微信账号</div>
-                    <div class="ipt"><input type="text" name="" v-model="cardInfoList.alipay_account"
+                    <div class="ipt"><input type="text" name="" v-model="cardInfoList.wx_account"
                                             :disabled="cardInfoList.wx_complete==1"></div>
                     <div class="titles">收款人</div>
                     <div class="ipt"><input type="text" name="" v-model="cardInfoList.real_name"
                                             :disabled="cardInfoList.wx_complete==1"></div>
                     <div class="titles">收款二维码</div>
                     <div v-if="!cardInfoList.wx_code" class="ipt" style="text-align:center;padding:20px 0;">
-                        <van-uploader v-model="fileList" multiple :max-count="1"
+                        <van-uploader  multiple :max-count="1" :before-read="sendInfo"
                                       :after-read="onRead">
                             <img src="@/assets/img/uploads.png">
                         </van-uploader>
@@ -77,16 +77,21 @@
                     <div class="titles">收款人</div>
                     <div class="ipt"><input type="text" name="" v-model="cardInfoList.bank_real_name"
                                             :disabled="cardInfoList.bank_complete==1"></div>
+                    <div class="titles">银行名</div>
+                    <div class="ipt"><input type="text" name="" v-model="cardInfoList.bank_name"
+                                            :disabled="cardInfoList.bank_complete==1"></div>
                     <div class="titles">开户行</div>
                     <div class="ipt"><input type="text" name="" v-model="cardInfoList.bank_address" placeholder="开户行全称"
                                             :disabled="cardInfoList.bank_complete==1"></div>
 
-                    <div style="text-align: center;margin-top: 10px" @click="postCardAlinfo({
+                    <div style="text-align: center;margin-top: 10px" @click="sendInfo()&&postCardAlinfo({
                     bank_account:cardInfoList.bank_account,
                     bank_address:cardInfoList.bank_address,
-                    bank_real_name: cardInfoList.bank_real_name
+                    bank_real_name: cardInfoList.bank_real_name,
+                    bank_name: cardInfoList.bank_name,
+                    type:3
                     })">
-                        <button>提交银行卡</button>
+                        <b v-if="!cardInfoList.bank_complete==1">提交银行卡</b>
                     </div>
                 </div>
             </div>
@@ -148,6 +153,7 @@
             // console.log($this.dataset.key)
             // console.log($this.get(0).dataset.key)
             winKey = $this.get(0).dataset.key
+            console.log(winKey)
             $next.slideToggle();
             $this.parent().toggleClass('open');
 
@@ -196,6 +202,7 @@
             // 选择文件前
             sendInfo() {
                 let data = {}
+                console.log(winKey)
                 switch (winKey) {
                     case 'zfb':
                         if (!this.cardInfoList.alipay_complete) {
@@ -217,7 +224,7 @@
                         break
                     case 'wx':
                         if (!this.cardInfoList.wx_complete) {
-                            if (!this.cardInfoList.alipay_account) {
+                            if (!this.cardInfoList.wx_account) {
                                 this.Toast('微信账号不能空')
                                 return false
                             }
@@ -242,6 +249,10 @@
                                 this.Toast('银行卡号不能空')
                                 return false
                             }
+                            if (!this.cardInfoList.bank_name) {
+                                this.Toast('银行名不能空')
+                                return false
+                            }
                             if (!this.cardInfoList.bank_address) {
                                 this.Toast('开户行地址不能空')
                                 return false
@@ -251,6 +262,7 @@
                                 bank_account: this.cardInfoList.bank_account,
                                 bank_real_name: this.cardInfoList.bank_real_name,
                                 bank_address: this.cardInfoList.bank_address,
+                                bank_name: this.cardInfoList.bank_name,
                                 type:3
                             }
                         }
@@ -261,6 +273,7 @@
             },
             // 文件提交
             onRead(file) { // 上传图片到图片服务器
+                this.sendInfo()
                 let url = 'api?m=api&c=user&a=upload_code'
                 let fd = new FormData()
                 let fileUrl={}
@@ -275,6 +288,8 @@
                     }else {
                         fileUrl={wx_code:result}
                     }
+                    console.log({...fileUrl, ...this.dataMsg})
+                    debugger
                     this.postCardAlinfo({...fileUrl, ...this.dataMsg})
                 }).catch(err => {
                     alert(err)

@@ -37,9 +37,9 @@
                                         倒计时{{parseInt((item.end_time_unix-showTime)/60000)}}
                                     </div>
 
-                                    <div class="bt on1" v-else>繁殖中</div>
+                                    <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
                                 </div>
-                                <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
+                                <div class="bt on1" v-else>蜕变中</div>
                                 --
                             </div>
                         </div>
