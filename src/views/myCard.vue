@@ -210,6 +210,7 @@
                             data = {
                                 alipay_account: this.cardInfoList.alipay_account,
                                 real_name: this.cardInfoList.real_name,
+                                type:1
                             }
                         }
 
@@ -227,6 +228,7 @@
                             data = {
                                 wx_account: this.cardInfoList.wx_account,
                                 real_name: this.cardInfoList.real_name,
+                                type:2
                             }
                             break
                         }
@@ -248,7 +250,8 @@
                                 //bank_name
                                 bank_account: this.cardInfoList.bank_account,
                                 bank_real_name: this.cardInfoList.bank_real_name,
-                                bank_address: this.cardInfoList.bank_address
+                                bank_address: this.cardInfoList.bank_address,
+                                type:3
                             }
                         }
                         break
@@ -260,13 +263,19 @@
             onRead(file) { // 上传图片到图片服务器
                 let url = 'api?m=api&c=user&a=upload_code'
                 let fd = new FormData()
+                let fileUrl={}
                 fd.append('file', file.file)
                 this.$file(url, fd, {
                     headers: {
                         'Content-Type': 'Content-Type:application/x-www-form-urlencoded'
                     }
                 }).then(({result}) => {
-                    this.postCardAlinfo({result, ...this.dataMsg})
+                    if(winKey=='zfb'){
+                        fileUrl={alipay_code:result}
+                    }else {
+                        fileUrl={wx_code:result}
+                    }
+                    this.postCardAlinfo({...fileUrl, ...this.dataMsg})
                 }).catch(err => {
                     alert(err)
                 })

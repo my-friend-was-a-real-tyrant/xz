@@ -89,7 +89,7 @@
             // 当前时间
             compareTime() {
                 let timer1 = setInterval(() => {
-                    this.showTime = this.getCurrentTime()
+                          this.showTime = this.getCurrentTime()
                 }, 1000)
             },
             getCurrentTime: function () {
@@ -101,7 +101,9 @@
                 let Min = data.getMinutes()
                 let S = data.getSeconds()
                 if (Min == '29' || Min == '59') {
-                    this.getGoodsList()
+                    if(S=='59'){
+                        this.getGoodsList()
+                    }
                 }
                 return new Date(Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S).getTime()
                 // return Y + '-' + M + '-' + D + '- ' + H + ':' + Min + ':' + S
