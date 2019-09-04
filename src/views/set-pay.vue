@@ -38,12 +38,17 @@
         mobile: '',
         randomString: 'eaeadasdfgasdga',
         password: '',
-        code: ''
+        code: '',
+        from: ''
       }
     },
     methods: {
       back () {
-        this.$router.replace('/bst')
+        if (this.from == 'mw') {
+          this.$router.replace('/mw')
+        }else {
+          this.$router.replace('/bst')
+        }
       },
       sendAuthCode () {
         // 参数：mobile=13402048361&unique_id=111111&scene=6
@@ -65,12 +70,14 @@
         }).then(res => {
           this.Toast(res.msg)
           if (res.status == 1) {
-            // this.back()
+            this.back()
           }
         })
       }
     },
     mounted() {
+      console.log(this.$route)
+      this.from  = this.$route.query.from
       this.userinfo = JSON.parse(localStorage.getItem('userinfo'))||{}
     }
   }

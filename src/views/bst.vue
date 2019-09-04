@@ -48,7 +48,7 @@
               this.$router.replace('/mw')
           },
           setPassword () {
-              this.$router.replace('/setPay')
+              this.$router.replace('/setPay?from=bst')
           },
           submit () {
               // https://api.dzccn.com/index.php?m=api&c=User&a=withdrawals

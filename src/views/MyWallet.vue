@@ -150,7 +150,7 @@ export default {
       this.$router.replace('/invite')
     },
     goSetPay () {
-      this.$router.replace('/setPay')
+      this.$router.replace('/setPay?from=mw')
     },
     logout () {
       this.$fetch(`api?m=api&c=user&a=logout&token=${this.userInfo.token}`).then(res => {
