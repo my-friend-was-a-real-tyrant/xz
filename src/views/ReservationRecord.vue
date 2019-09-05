@@ -20,14 +20,28 @@ export default {
   },
   data() {
     return {
-
+      userinfo: {},
     };
   },
   created() {
+    this.userinfo = JSON.parse(localStorage.getItem('userinfo')) || {}
+  },
+  mounted(){
 
   },
   methods: {
-
+    getRr(){
+      const data = {
+          token: this.userinfo.token,
+          order_id: this.orderid
+        }
+        this.$post('/api?m=Api&c=Order&a=jin_detail', data).then( (res) =>{
+            if(res.status === 1){
+              this.ssInfo = res.result
+              console.log(this.ssInfo)
+            }
+        })
+    }
   }
 };
 </script>

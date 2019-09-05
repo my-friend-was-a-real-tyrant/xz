@@ -37,16 +37,17 @@
           </div>
           <div class="titles">
             状态：
-            <span style="color:#fff">超时未确认</span>
+            <span style="color:#fff" v-if="ssInfo.status == 3">超时未确认</span>
+            <span style="color:#fff" v-if="ssInfo.status == 5">已投诉</span>
           </div>
-          <form>
+          <form v-if="ssInfo.status == 3">
             <div class="bst-txt">
               <div class="ipt" style="height:80px;line-height:80px;">
                 <input type="text" name v-model="content" placeholder="请输入投诉内容" />
               </div>
             </div>
             <div class="bst-submit">
-              <input type="submit" @click="subForm()" value="提交投诉" />
+              <input type="button"   @click="subForm()" value="提交投诉" />
             </div>
           </form>
         </div>
@@ -99,11 +100,19 @@ export default {
           content: this.content,
           type: 1
         }
-        this.$post('/api?m=Api&c=User&a=order_ts', data).then( (res) =>{
-            if(res.status === 1){
-              console.log(res)
-            }
-        })
+        if(data.content){
+            this.$post('/api?m=Api&c=User&a=order_ts', data).then( (res) =>{
+              if(res.status === 1){
+                this.Toast(res.msg)
+                setTimeout(() => {
+                  this.$router.replace('/ar');
+                }, 1000);
+              }
+          })
+        }else{
+          this.Toast('投诉内容不能为空！')
+        }
+        
     }
   }
 };
