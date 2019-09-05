@@ -56,6 +56,11 @@ export default new Router({
       component: () => import('./views/RecordArticle.vue')
     },
     {
+      path: '/ssa',
+      name:'SsArticle',
+      component: () => import('./views/SsArticle.vue')
+    },
+    {
       path: '/aa',
       name: 'AppealArticle',
       component: () => import('./views/AppealArticle.vue')
@@ -69,6 +74,11 @@ export default new Router({
       path: '/tr',
       name: 'TransferRecord',
       component: () => import('./views/TransferRecord.vue')
+    },
+    {
+      path: '/ta',
+      name: 'TransferArticle',
+      component: () => import('./views/TransferArticle.vue')
     },
     {
       path: '/register',

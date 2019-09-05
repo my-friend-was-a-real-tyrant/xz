@@ -3,7 +3,10 @@
       <div class="header"><div class="top-left"><a href="javascript:;" onclick="javascript:history.go(-1);return false;" title="后退"><div class="return"><img src="@/assets/img/return.png"></div></a></div><div class="top-m">预约</div></div>
 
       <div class="reservation"><ul>
-      <li><div class="left"><h1>幸运白羊座（未抢中）</h1><p class="time">2019-07-16  11:13:56</p></div><div class="right"><p class="nu">2</p><p>花费积分</p></div></li>
+      <li v-for="(item,index) in yyList" :key="index"><div class="left">
+        <h1 v-if="item.status == 0">{{item.goods_name}}（预约失败）</h1>
+        <h1 v-if="item.status == 1">{{item.goods_name}}（预约成功）</h1>
+        <p class="time">{{item.add_time}}</p></div><div class="right"><p class="nu">{{item.points}}</p><p>花费积分</p></div></li>
       </ul></div>
 
     <PageFooter />
@@ -21,24 +24,24 @@ export default {
   data() {
     return {
       userinfo: {},
+      yyList:[]
     };
   },
   created() {
     this.userinfo = JSON.parse(localStorage.getItem('userinfo')) || {}
   },
   mounted(){
-
+    this.getRr()
   },
   methods: {
     getRr(){
       const data = {
           token: this.userinfo.token,
-          order_id: this.orderid
+          type: 1
         }
-        this.$post('/api?m=Api&c=Order&a=jin_detail', data).then( (res) =>{
+        this.$post('/api?m=Api&c=Order&a=order_jin_list', data).then( (res) =>{
             if(res.status === 1){
-              this.ssInfo = res.result
-              console.log(this.ssInfo)
+              this.yyList = res.result
             }
         })
     }

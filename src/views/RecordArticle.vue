@@ -68,7 +68,7 @@
                             <span style="color:#dc0ec1">点击查看</span>
                         </a>
                     </div>
-                    <!-- 1.缺上传截图功能 2.提交抢购信息 v-if="zfInfo.image"-->
+                    <!-- 1.上传截图功能 2.提交抢购信息 v-if="zfInfo.image"-->
                     <div class="titles" style="padding:10px 0 0 0">上传打款截图:</div>
 
                     <div  v-if="!zfInfo.image" class="ipt" style="text-align:center;padding:20px 0;">
@@ -81,7 +81,7 @@
                         <img src="@/assets/img/ewm.jpg"/>
                     </div>
                     <div class="bst-submit">
-                        <input type="submit" value="确认打款"/>
+                        <input type="button" value="确认打款"/>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,6 @@
                     if (res.status === 1) {
                         this.artInfo = res.result
                         this.zfInfo = res.result.zhifu_info
-                        console.log(this.artInfo, this.zfInfo)
                     }
                 })
             },
@@ -168,6 +167,7 @@
                         'Content-Type': 'Content-Type:application/x-www-form-urlencoded'
                     }
                 }).then(({result}) => {
+                    // this.artInfo.image = result;
                     this.$fetch(`api?m=api&c=User&a=upload_jieping&token=${this.userinfo.token}&order_id=${this.orderid}&img_url=${result}`).then(()=>{
                         this.getInfo()
                     })
@@ -175,6 +175,20 @@
                     alert(err)
                 })
             },
+            // submitRa(){
+            //     const data = {
+            //         token: this.userinfo.token,
+            //         order_id: this.orderid,
+            //         img_url: this.artInfo.image
+            //     }
+            //     console.log(data)
+            //     this.$post('/api?m=api&c=User&a=upload_jieping', data).then((res) => {
+            //         console.log(res)
+            //         if (res.status === 1) {
+                        
+            //         }
+            //     })
+            // },
             showModal(index) {
                 switch (index) {
                     case 1:
