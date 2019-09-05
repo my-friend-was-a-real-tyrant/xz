@@ -16,24 +16,24 @@
     <div id="tabtxt" style="min-height:750px;">
       <div class="mybank">
         <div class="payt hover-click">
-          <span>区块星座编号：TP100000001</span>
+          <span>区块星座编号：{{ssInfo.order_sn}}</span>
         </div>
         <div class="list-a1">
           <div class="titles">
             星座：
-            <span style="color:#fff">幸运水瓶座</span>
+            <span style="color:#fff">{{ssInfo.goods_name}}</span>
           </div>
           <div class="titles">
             价值：
-            <span style="color:#fff">201 GTC</span>
+            <span style="color:#fff">{{ssInfo.order_money}}</span>
           </div>
           <div class="titles">
             智能合约收益：
-            <span style="color:#fff">15天/15%</span>
+            <span style="color:#fff">{{ssInfo.profit_interval}}</span>
           </div>
           <div class="titles">
             匹配时间：
-            <span style="color:#fff">2019-08-08 12:00:00</span>
+            <span style="color:#fff">{{ssInfo.pipei_time}}</span>
           </div>
           <div class="titles">
             状态：
@@ -42,11 +42,11 @@
           <form>
             <div class="bst-txt">
               <div class="ipt" style="height:80px;line-height:80px;">
-                <input type="text" name value placeholder="请输入投诉内容" />
+                <input type="text" name v-model="content" placeholder="请输入投诉内容" />
               </div>
             </div>
             <div class="bst-submit">
-              <input type="submit" value="提交投诉" />
+              <input type="submit" @click="subForm()" value="提交投诉" />
             </div>
           </form>
         </div>
@@ -68,13 +68,44 @@ export default {
     return {
       orderid: '',
       userinfo: {},
+      content:'',
+      ssInfo:[]
     };
   },
   created() {
-    this.orderid = localStorage.getItem('arorderid') || '';
+    this.orderid = localStorage.getItem('aaorderid') || '';
     this.userinfo = JSON.parse(localStorage.getItem('userinfo')) || {}
   },
-  methods: {}
+  mounted(){
+    this.getInfo()
+  },
+  methods: {
+    getInfo(){
+       const data = {
+          token: this.userinfo.token,
+          order_id: this.orderid
+        }
+        this.$post('/api?m=Api&c=Order&a=jin_detail', data).then( (res) =>{
+            if(res.status === 1){
+              this.ssInfo = res.result
+              console.log(this.ssInfo)
+            }
+        })
+    },
+    subForm(){
+      const data = {
+          token: this.userinfo.token,
+          order_id: this.orderid,
+          content: this.content,
+          type: 1
+        }
+        this.$post('/api?m=Api&c=User&a=order_ts', data).then( (res) =>{
+            if(res.status === 1){
+              console.log(res)
+            }
+        })
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

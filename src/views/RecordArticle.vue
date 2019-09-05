@@ -34,7 +34,7 @@
           </div>
           <div class="titles" style="padding:10px 0 0 0">
             匹配时间：
-            <span style="color:#fff">{{artInfo.add_time}}</span>
+            <span style="color:#fff">{{artInfo.pipei_time}}</span>
           </div>
           <div class="titles" style="padding:10px 0 0 0">
             状态：

@@ -30,7 +30,7 @@
         <ul  v-if="navIndex == 1">
           <div class="reservation">
             <li v-for="(item, index) in beenList" :key="index">
-              <div class="left"><h1>{{ item.goods_name }}</h1><p class="time">{{ item.add_time }}</p></div>
+              <div class="left"><h1>{{ item.goods_name }}</h1><p class="time">{{ item.pipei_time }}</p></div>
               <div class="center"><p class="nu">{{ item.points }}</p><p>花费积分</p></div>
               <div class="right"><a @click="goRa(item.id)"><div class="bbuu">查看</div></a></div>
             </li>
@@ -39,7 +39,7 @@
         <ul  v-if="navIndex == 2">
           <div class="reservation">
             <li v-for="(item, index) in completeList" :key="index">
-              <div class="left"><h1>{{ item.goods_name }}（已完成）</h1><p class="time">{{ item.add_time }}</p></div>
+              <div class="left"><h1>{{ item.goods_name }}（已完成）</h1><p class="time">{{ item.pipei_time }}</p></div>
               <div class="right"><p class="nu">{{ item.order_money }}</p><p>合约价值</p></div>
             </li>
           </div>
@@ -47,7 +47,7 @@
         <ul  v-if="navIndex == 3">
           <div class="reservation">
             <li  v-for="(item, index) in brokenList" :key="index">
-              <div class="left"><h1>{{ item.goods_name }}（未确认）</h1><p class="time">{{ item.add_time }}</p></div>
+              <div class="left"><h1>{{ item.goods_name }}（未确认）</h1><p class="time">{{ item.pipei_time }}</p></div>
               <div class="right"><a @click="goAa(item.id)"><div class="bbuu">申诉</div></a></div>
             </li>
           </div>
