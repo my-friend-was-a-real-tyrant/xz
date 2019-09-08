@@ -56,6 +56,16 @@ export default new Router({
       component: () => import('./views/RecordArticle.vue')
     },
     {
+      path: '/re',
+      name:'RecommendEarnings',
+      component: () => import('./views/RecommendEarnings.vue')
+    },
+    {
+      path: '/te',
+      name: 'TotalEarnings',
+      component: () => import('./views/TotalEarnings.vue')
+    },
+    {
       path: '/ssa',
       name:'SsArticle',
       component: () => import('./views/SsArticle.vue')

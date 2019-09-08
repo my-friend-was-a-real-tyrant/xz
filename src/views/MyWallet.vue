@@ -35,10 +35,10 @@
           <div class="brt">LUCKY：{{userInfo.lucky_money}}</div>
         </li>
         <li>
-          <div class="brt">推荐受益：{{userInfo.distribut_money}}</div>
+          <div class="brt" @click="goRe">推荐受益：{{userInfo.distribut_money}}</div>
         </li>
         <li>
-          <div class="brt">累计收益：{{userInfo.leji_money}}</div>
+          <div class="brt" @click="goTe">累计收益：{{userInfo.leji_money}}</div>
         </li>
         <li>
           <div class="brt">总资产：{{userInfo.total_money}}</div>
@@ -137,8 +137,15 @@ export default {
     goMyteam () {
       this.$router.replace('/mt')
     },
+    goRe(){
+      this.$router.replace('/re')
+    },
+    goTe(){
+      this.$router.replace('/te')
+    },
     goGtc () {
-      this.$router.replace('/bst')
+      // this.$router.replace('/bst')
+      this.Toast('未开放...')
     },
     goJifen () {
       this.$router.replace('/jifen')
