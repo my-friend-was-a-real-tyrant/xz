@@ -12,26 +12,14 @@
     </div>
 
     <div class="reservation">
-      <ul>
+      <ul v-for="(item,index) in teInfo" :key="index">
         <li>
           <div class="left">
-            <h1>推荐会员</h1>
-            <p class="time">2019-07-16 11:13:56</p>
+            <h1>{{item.desc}}</h1>
+            <p class="time">{{item.change_time}}</p>
           </div>
           <div class="right">
-            <p class="nu">20</p>
-            <p>GTC</p>
-          </div>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <div class="left">
-            <h1>合约收益</h1>
-            <p class="time">2019-07-16 11:13:56</p>
-          </div>
-          <div class="right">
-            <p class="nu">15</p>
+            <p class="nu">{{item.user_money}}</p>
             <p>GTC</p>
           </div>
         </li>
@@ -51,7 +39,8 @@ export default {
   },
   data() {
     return {
-      userinfo: {}
+      userinfo: {},
+      teInfo:[]
     };
   },
   created() {
@@ -67,7 +56,7 @@ export default {
             }
             this.$post('/api?m=api&c=user&a=getmoney', data).then((res) => {
                 if (res.status === 1) {
-                    console.log(res)
+                    this.teInfo = res.result.account_log
                 }
             })
       }
