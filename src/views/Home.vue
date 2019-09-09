@@ -78,7 +78,7 @@
         </div>
 
         <div id="bar1" class="bar" v-if="success">
-            <div class="ttop">恭喜您，抢购成功！</div>
+            <div class="ttop">恭喜您，{{msg}}！</div>
             <img src="@/assets/img/cg.png">
             <p @click="closeSuccess" style="cursor:pointer;" title="关闭"><img src="@/assets/img/x.png"></p>
         </div>
@@ -116,7 +116,8 @@
                 timer1: null,
                 userinfo: {},
                 success: false,
-                error:false
+                error:false,
+                msg:''
             }
         },
         created() {
@@ -169,15 +170,16 @@
                     setTimeout(() => {
                         this.error = false;
                     }, 2000);
-                    return this.$post('api?m=api&c=Order&a=add_order_jin', {
+                }else{
+                    this.success = true
+                     return this.$post('api?m=api&c=Order&a=add_order_jin', {
                         token: this.userinfo.token,
                         goods_id: item.goods_id,
                         type: type
-                    }).then(({result}) => {
+                    }).then(({msg}) => {
+                        this.msg = msg;
                         this.getGoodsList()
                     })
-                }else{
-                    this.success = true
                 }
                 
             }
