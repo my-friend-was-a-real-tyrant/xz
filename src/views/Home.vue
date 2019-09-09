@@ -76,6 +76,19 @@
                 </li>
             </ul>
         </div>
+
+        <div id="bar1" class="bar" v-if="success">
+            <div class="ttop">恭喜您，抢购成功！</div>
+            <img src="@/assets/img/cg.png">
+            <p @click="closeSuccess" style="cursor:pointer;" title="关闭"><img src="@/assets/img/x.png"></p>
+        </div>
+
+        <div id="bar2" class="bar" v-if="error">
+            <div class="ttop">很抱歉，请再接再厉!</div>
+            <img src="@/assets/img/cg.png">
+            <!-- <p style="cursor:pointer;" title="关闭"><img src="@/assets/img/x.png"></p> -->
+        </div>
+
         <PageFooter/>
     </div>
 </template>
@@ -101,7 +114,9 @@
                 thisTime: '',
                 timer2: null,
                 timer1: null,
-                userinfo: {}
+                userinfo: {},
+                success: false,
+                error:false
             }
         },
         created() {
@@ -113,6 +128,10 @@
             this.getGoodsList()
         },
         methods: {
+            // 关闭弹窗
+            closeSuccess(){
+                this.success = false
+            },
             // 当前时间
             compareTime() {
                 let timer1 = setInterval(() => {
@@ -145,14 +164,22 @@
             // 抢购 预约
             rushOrder(item, type) {
                 // 预约过的 不能抢
-                if (item.order_on == 1) return
-                this.$post('api?m=api&c=Order&a=add_order_jin', {
-                    token: this.userinfo.token,
-                    goods_id: item.goods_id,
-                    type: type
-                }).then(({result}) => {
-                    this.getGoodsList()
-                })
+                if (item.order_on == 1){
+                    this.error = true;
+                    setTimeout(() => {
+                        this.error = false;
+                    }, 2000);
+                    return this.$post('api?m=api&c=Order&a=add_order_jin', {
+                        token: this.userinfo.token,
+                        goods_id: item.goods_id,
+                        type: type
+                    }).then(({result}) => {
+                        this.getGoodsList()
+                    })
+                }else{
+                    this.success = true
+                }
+                
             }
         },
         beforeDestroy() {
@@ -168,6 +195,13 @@
     }
 </script>
 <style lang="scss" scoped>
+
+.bar{background-color:rgba(0,0,0,0.5);position:fixed;z-index:99;left:0;top:0px;padding-top:70px;width:100%;height:100%;text-align:center;}
+.bar img{max-width:80%;border-radius:12px;}
+.bar p{ padding-top:10px;}
+.bar p img{width:33px;}
+.bar .ttop{color:#fff;text-align:center;font-size:18px;line-height:50px;}
+
     .banner {
         padding: 10px;
     }
