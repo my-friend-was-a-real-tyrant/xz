@@ -5,6 +5,7 @@
         <div class="index-p">
             <ul>
                 <li v-for="(item,key) in GoodsList" :key="key">
+                    <!--{{(item.start_time_unix-showTime)/1000}}-->
                     <div class="box">
                         <div class="top-list">
                             <p><span class="c1">价值：</span><span
@@ -23,13 +24,14 @@
                                 <p>{{item.goods_name}}</p>
                                 <!--is_on_sale 上架 order_on 预约-->
                                 <div v-if="item.is_on_sale">
-                                    <div class="bt" v-if="showTime<(item.start_time_unix-60*1000)" @click="rushOrder(item,1)">
+                                    <div class="bt" v-if="showTime<(item.start_time_unix-60*1000)"
+                                         @click="rushOrder(item,1)">
                                         {{item.order_on==0?"预约":"预约中"}}
                                     </div>
                                     <div class="bt on2" @click="rushOrder(item,1)"
                                          v-else-if="showTime>(item.start_time_unix-60*1000)&&showTime<(item.start_time_unix)">
                                         <span v-if="item.order_on!==1">
-                                            倒计时{{parseInt((item.start_time_unix-showTime)/60000)}}
+                                            倒计时{{(item.start_time_unix-showTime)/1000}}
                                         </span>
                                         <span v-else>
                                             预约中
@@ -44,31 +46,31 @@
                                 <div class="bt on1" v-else>蜕变中</div>
                                 --
                             </div>
-<!--
-                            <div class="txt2"><img src="@/assets/img/x1s.png">
-                                <p>{{item.goods_name}}</p>
-                                &lt;!&ndash;is_on_sale 上架 order_on 预约&ndash;&gt;
-                                <div v-if="item.is_on_sale">
-                                    <div class="bt" v-if="showTime<item.start_time_unix" @click="rushOrder(item,1)">
-                                        {{item.order_on==0?"预约":"预约中"}}
-                                    </div>
-                                    <div class="bt on2" @click="rushOrder(item,2)"
-                                         v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix-60*1000)">
-                                        <span></span>
-                                        &lt;!&ndash;                                        {{item.order_on==2?'抢购成功':'抢购'}}&ndash;&gt;
-                                        {{item.order_on==1?'蜕变中':item.order_on==2?'抢购成功':'抢购'}}
-                                    </div>
-                                    <div class="bt "
-                                         v-else-if="showTime>(item.end_time_unix-60*1000)&&showTime<(item.end_time_unix)">
-                                        倒计时{{parseInt((item.end_time_unix-showTime)/60000)}}
-                                    </div>
+                            <!--
+                                                        <div class="txt2"><img src="@/assets/img/x1s.png">
+                                                            <p>{{item.goods_name}}</p>
+                                                            &lt;!&ndash;is_on_sale 上架 order_on 预约&ndash;&gt;
+                                                            <div v-if="item.is_on_sale">
+                                                                <div class="bt" v-if="showTime<item.start_time_unix" @click="rushOrder(item,1)">
+                                                                    {{item.order_on==0?"预约":"预约中"}}
+                                                                </div>
+                                                                <div class="bt on2" @click="rushOrder(item,2)"
+                                                                     v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix-60*1000)">
+                                                                    <span></span>
+                                                                    &lt;!&ndash;                                        {{item.order_on==2?'抢购成功':'抢购'}}&ndash;&gt;
+                                                                    {{item.order_on==1?'蜕变中':item.order_on==2?'抢购成功':'抢购'}}
+                                                                </div>
+                                                                <div class="bt "
+                                                                     v-else-if="showTime>(item.end_time_unix-60*1000)&&showTime<(item.end_time_unix)">
+                                                                    倒计时{{parseInt((item.end_time_unix-showTime)/60000)}}
+                                                                </div>
 
-                                    <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
-                                </div>
-                                <div class="bt on1" v-else>蜕变中</div>
-                                &#45;&#45;
-                            </div>
--->
+                                                                <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
+                                                            </div>
+                                                            <div class="bt on1" v-else>蜕变中</div>
+                                                            &#45;&#45;
+                                                        </div>
+                            -->
                         </div>
                     </div>
                 </li>
@@ -99,7 +101,7 @@
                 thisTime: '',
                 timer2: null,
                 timer1: null,
-                userinfo:{}
+                userinfo: {}
             }
         },
         created() {
@@ -114,7 +116,7 @@
             // 当前时间
             compareTime() {
                 let timer1 = setInterval(() => {
-                          this.showTime = this.getCurrentTime()
+                    this.showTime = this.getCurrentTime()
                 }, 1000)
             },
             getCurrentTime: function () {
@@ -126,7 +128,7 @@
                 let Min = data.getMinutes()
                 let S = data.getSeconds()
                 if (Min == '29' || Min == '59') {
-                    if(S=='59'){
+                    if (S == '59') {
                         this.getGoodsList()
                     }
                 }
