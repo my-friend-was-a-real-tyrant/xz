@@ -15,7 +15,7 @@
         <!--        <script src="@/assets/js/slide-tabtxt.js"></script>-->
         <div id="tabtxt" style="min-height:750px;">
             <div class="mybank">
-                <div class="payt hover-click" data-key="zfb"><span>支付宝</span>
+                <div class="payt hover-click" data-key="zfb"><span>{{winKey}}支付宝</span>
                     <div class="rtd"><span id="">{{cardInfoList.alipay_complete==1?"已完成":"未完善"}}</span><img
                             src="@/assets/img/pd.png"></div>
                 </div>
@@ -31,7 +31,8 @@
                                             :disabled="cardInfoList.alipay_complete==1"></div>
                     <div class="titles">收款二维码</div>
                     <div v-if="!cardInfoList.alipay_code" class="ipt" style="text-align:center;padding:20px 0;">
-                        <van-uploader  multiple :max-count="1" :before-read="sendInfo"
+                        <van-uploader multiple :max-count="1"
+                                      :before-read="sendInfo"
                                       :after-read="onRead">
                             <img src="@/assets/img/uploads.png">
                         </van-uploader>
@@ -42,7 +43,7 @@
             </div>
 
             <div class="mybank">
-                <div class="payt hover-click" data-key="wx"><span>微信</span>
+                <div class="payt hover-click" data-key="wx"><span>{{winKey}}微信</span>
                     <div class="rtd"><span id="">{{cardInfoList.wx_complete==1?"已完成":"未完善"}}</span><img
                             src="@/assets/img/pd.png"></div>
                 </div>
@@ -55,7 +56,8 @@
                                             :disabled="cardInfoList.wx_complete==1"></div>
                     <div class="titles">收款二维码</div>
                     <div v-if="!cardInfoList.wx_code" class="ipt" style="text-align:center;padding:20px 0;">
-                        <van-uploader  multiple :max-count="1" :before-read="sendInfo"
+                        <van-uploader multiple :max-count="1"
+                                      :before-read="sendInfo"
                                       :after-read="onRead">
                             <img src="@/assets/img/uploads.png">
                         </van-uploader>
@@ -106,7 +108,8 @@
                     <div class="titles">收款人</div>
                     <div class="ipt"><input type="text" name="" value="王小二"></div>
                     <div class="titles">收款二维码</div>
-                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/uploads.png"></div>
+                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/uploads.png">
+                    </div>
                 </div>
             </div>
 
@@ -121,7 +124,8 @@
                     <div class="titles">收款人</div>
                     <div class="ipt"><input type="text" name="" value="王小二"></div>
                     <div class="titles">收款二维码</div>
-                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/uploads.png"></div>
+                    <div class="ipt" style="text-align:center;padding:20px 0;"><img src="@/assets/img/uploads.png">
+                    </div>
                 </div>
             </div>
 
@@ -134,6 +138,7 @@
     import PageHeader from '@/components/PageHeader.vue'
     import PageFooter from '@/components/PageFooter.vue'
 
+    let winKey = ''
     export default {
         name: "myCard",
         components: {
@@ -146,12 +151,13 @@
         data() {
             return {
                 cardInfoList: '', fileList: [],
-                dataMsg: {},winKey : 'zfb'
+                dataMsg: {},
+                winKey: ''
             }
         },
         methods: {
-            init(){
-                this.winKey = 'zfb'
+            init() {
+                winKey = 'zfb'
                 var Accordion = function (el, multiple) {
                     this.el = el || {};
                     this.multiple = multiple || false;
@@ -165,8 +171,8 @@
                     var $el = e.data.el,
                         $this = $(this),
                         $next = $this.next();
-                    this.winKey = $this.get(0).dataset.key
-                    console.log(this.winKey)
+                    winKey = $this.get(0).dataset.key
+                    console.log(winKey)
                     $next.slideToggle();
                     $this.parent().toggleClass('open');
 
@@ -182,7 +188,7 @@
             },
             // 获取默认值
             getInfoList() {
-                this.$post('api?m=api&c=user&a=getinfoList', {token:JSON.parse(localStorage.getItem('userinfo')||{}).token}).then(({result}) => {
+                this.$post('api?m=api&c=user&a=getinfoList', {token: JSON.parse(localStorage.getItem('userinfo') || {}).token}).then(({result}) => {
                     this.cardInfoList = result
                 })
             },
@@ -197,8 +203,9 @@
             },
             // 选择文件前
             sendInfo() {
+                console.log("选择文件前", winKey);
                 let data = {}
-                switch (this.winKey) {
+                switch (winKey) {
                     case 'zfb':
                         if (!this.cardInfoList.alipay_complete) {
                             if (!this.cardInfoList.alipay_account) {
@@ -212,7 +219,7 @@
                             data = {
                                 alipay_account: this.cardInfoList.alipay_account,
                                 real_name: this.cardInfoList.real_name,
-                                type:1
+                                type: 1
                             }
                         }
 
@@ -230,7 +237,7 @@
                             data = {
                                 wx_account: this.cardInfoList.wx_account,
                                 real_name: this.cardInfoList.real_name,
-                                type:2
+                                type: 2
                             }
                             break
                         }
@@ -258,7 +265,7 @@
                                 bank_real_name: this.cardInfoList.bank_real_name,
                                 bank_address: this.cardInfoList.bank_address,
                                 bank_name: this.cardInfoList.bank_name,
-                                type:3
+                                type: 3
                             }
                         }
                         break
@@ -271,17 +278,17 @@
                 this.sendInfo()
                 let url = 'api?m=api&c=user&a=upload_code'
                 let fd = new FormData()
-                let fileUrl={}
+                let fileUrl = {}
                 fd.append('file', file.file)
                 this.$file(url, fd, {
                     headers: {
                         'Content-Type': 'Content-Type:application/x-www-form-urlencoded'
                     }
                 }).then(({result}) => {
-                    if(this.winKey=='zfb'){
-                        fileUrl={alipay_code:result}
-                    }else {
-                        fileUrl={wx_code:result}
+                    if (winKey == 'zfb') {
+                        fileUrl = {alipay_code: result}
+                    } else {
+                        fileUrl = {wx_code: result}
                     }
                     this.postCardAlinfo({...fileUrl, ...this.dataMsg})
                 }).catch(err => {
@@ -293,8 +300,8 @@
 
             }
         },
-        mounted(){
-            this.$nextTick(()=>{
+        mounted() {
+            this.$nextTick(() => {
                 this.init()
             })
         }

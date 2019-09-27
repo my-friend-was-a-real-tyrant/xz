@@ -68,17 +68,17 @@
                             <span style="color:#dc0ec1">点击查看</span>
                         </a>
                     </div>
-                    <!-- 1.上传截图功能 2.提交抢购信息 v-if="zfInfo.image"-->
+                    <!-- 1.上传截图功能 2.提交抢购信息 v-if="zfInfo.image" :before-read="sendInfo"-->
                     <div class="titles" style="padding:10px 0 0 0">上传打款截图:</div>
-
-                    <div  v-if="!zfInfo.image" class="ipt" style="text-align:center;padding:20px 0;">
-                        <van-uploader multiple :max-count="1" :before-read="sendInfo"
+                    <!--<img :src="_imgUrl+artInfo.image"/>-->
+                    <div  v-if="!artInfo.image" class="ipt" style="text-align:center;padding:20px 0;">
+                        <van-uploader multiple :max-count="1"
                                       :after-read="onRead">
                             <img src="@/assets/img/uploads.png">
                         </van-uploader>
                     </div>
                     <div v-else class="ipt" style="text-align:center;padding:20px 0;">
-                        <img src="@/assets/img/ewm.jpg"/>
+                        <img :src="_imgUrl+artInfo.image"/>
                     </div>
                     <div class="bst-submit">
                         <input type="button" value="确认打款"/>
@@ -168,9 +168,16 @@
                     }
                 }).then(({result}) => {
                     // this.artInfo.image = result;
-                    this.$fetch(`api?m=api&c=User&a=upload_jieping&token=${this.userinfo.token}&order_id=${this.orderid}&img_url=${result}`).then(()=>{
+                    this.$post('api?m=api&c=User&a=upload_jieping',{
+                        token:this.userinfo.token,
+                        order_id:this.orderid,
+                        img_url:result
+                    }).then(()=>{
                         this.getInfo()
                     })
+                    // this.$fetch(`api?m=api&c=User&a=upload_jieping&token=${this.userinfo.token}&order_id=${this.orderid}&img_url=${result}`).then(()=>{
+                    //     this.getInfo()
+                    // })
                 }).catch(err => {
                     alert(err)
                 })
@@ -185,7 +192,7 @@
             //     this.$post('/api?m=api&c=User&a=upload_jieping', data).then((res) => {
             //         console.log(res)
             //         if (res.status === 1) {
-                        
+
             //         }
             //     })
             // },
