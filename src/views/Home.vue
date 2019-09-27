@@ -24,16 +24,15 @@
                                 <p>{{item.goods_name}}</p>
                                 <!--is_on_sale 上架 order_on 预约-->
                                 <div v-if="item.is_on_sale">
-                                    <div class="bt" v-if="showTime<(item.start_time_unix-60*1000)"
+                                    <div class="bt" v-if="showTime<item.start_time_unix"
                                          @click="rushOrder(item,1)">
                                         {{item.order_on==0?"预约":"预约中"}}
                                     </div>
-                                    <div class="bt on2" @click="rushOrder(item,1)"
-                                         v-else-if="showTime>(item.start_time_unix-60*1000)&&showTime<(item.start_time_unix)">
-                                        <span v-if="item.order_on!==1">
-                                            倒计时{{(item.start_time_unix-showTime)/1000}}
-                                        </span>
-                                        <span v-else>
+                                    <div class="bt on2" @click="rushOrder(item,1)">
+                                        <!--<span v-if="item.order_on!==1">-->
+                                            <!--倒计时{{(item.start_time_unix-showTime)/1000}}-->
+                                        <!--</span>-->
+                                        <span>
                                             预约中
                                         </span>
                                     </div>
@@ -181,7 +180,7 @@
                         this.getGoodsList()
                     })
                 }
-                
+
             }
         },
         beforeDestroy() {
