@@ -24,26 +24,35 @@
                                 <p>{{item.goods_name}}</p>
                                 <!--is_on_sale 上架 order_on 预约-->
                                 <div v-if="item.is_on_sale">
-                                    <div class="bt" v-if="showTime<item.start_time_unix"
+                                    <!-- <div class="bt" v-if="showTime<item.start_time_unix"
                                          @click="rushOrder(item,1)">
                                         {{item.order_on==0?"预约":"预约中"}}
-                                    </div>
-                                    <div class="bt on2" @click="rushOrder(item,1)">
-                                        <!--<span v-if="item.order_on!==1">-->
-                                            <!--倒计时{{(item.start_time_unix-showTime)/1000}}-->
-                                        <!--</span>-->
+                                    </div> -->
+                                    <!-- <div class="bt on2" @click="rushOrder(item,1)">
+                                        <span v-if="item.order_on!==1">
+                                            倒计时{{(item.start_time_unix-showTime)/1000}}
+                                        </span>
                                         <span>
                                             预约中
                                         </span>
-                                    </div>
-                                    <div class="bt " @click="rushOrder(item,2)"
-                                         v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix)">
+                                    </div> -->
+                                    <!-- v-else-if="showTime>(item.start_time_unix)&&showTime<(item.end_time_unix)" -->
+                                    <!-- <div class="bt " @click="rushOrder(item,2)" >
                                         {{item.order_on==1?'蜕变中':item.order_on==2?'抢购成功':'抢购'}}
+                                    </div> -->
+                                     <div class="bt on2"  
+                                     @click="rushOrder(item,1)"
+                                     v-if="showTime > (item.ios_start_time_unix) && showTime < (item.ios_end_time_unix)">
+                                     {{item.order_on==0?"预约":"预约中"}}
+                                     </div>
+                                    <div class="bt on1" 
+                                    @click="rushOrder(item,2)" 
+                                    style="background-color: #ddd" 
+                                    v-else>
+                                     蜕变中
                                     </div>
-                                    <div class="bt on1" style="background-color: #ddd" v-else>蜕变中</div>
+                                   
                                 </div>
-                                <div class="bt on1" v-else>蜕变中</div>
-                                --
                             </div>
                             <!--
                                                         <div class="txt2"><img src="@/assets/img/x1s.png">
@@ -163,20 +172,23 @@
             },
             // 抢购 预约
             rushOrder(item, type) {
+                // console.log(item)
                 // 预约过的 不能抢
-                if (item.order_on == 1){
+                if (item.order_on == 2){
                     this.error = true;
                     setTimeout(() => {
                         this.error = false;
                     }, 2000);
                 }else{
-                    this.success = true
-                     return this.$post('api?m=api&c=Order&a=add_order_jin', {
+                     const data = {
                         token: this.userinfo.token,
                         goods_id: item.goods_id,
                         type: type
-                    }).then(({msg}) => {
+                    }
+                    // console.log(data)
+                     return this.$post('api?m=api&c=Order&a=add_order_jin', data).then(({msg}) => {
                         this.msg = msg;
+                        this.success = true
                         this.getGoodsList()
                     })
                 }
