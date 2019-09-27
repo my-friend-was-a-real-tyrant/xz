@@ -80,8 +80,8 @@
                     <div v-else class="ipt" style="text-align:center;padding:20px 0;">
                         <img :src="_imgUrl+artInfo.image"/>
                     </div>
-                    <div class="bst-submit">
-                        <input type="button" value="确认打款"/>
+                    <div class="bst-submit" v-if="!artInfo.image" @click="btnSubmit()">
+                        <input type="button"  value="确认打款"/>
                     </div>
                 </div>
             </div>
@@ -167,13 +167,17 @@
                         'Content-Type': 'Content-Type:application/x-www-form-urlencoded'
                     }
                 }).then(({result}) => {
+                    this.result=result
                     // this.artInfo.image = result;
                     this.$post('api?m=api&c=User&a=upload_jieping',{
                         token:this.userinfo.token,
                         order_id:this.orderid,
                         img_url:result
-                    }).then(()=>{
-                        this.getInfo()
+                    }).then((res)=>{
+                        if(res.status==1){
+                            this.Toast(res.msg)
+                            this.getInfo()
+                        }
                     })
                     // this.$fetch(`api?m=api&c=User&a=upload_jieping&token=${this.userinfo.token}&order_id=${this.orderid}&img_url=${result}`).then(()=>{
                     //     this.getInfo()
@@ -181,6 +185,9 @@
                 }).catch(err => {
                     alert(err)
                 })
+            },
+            btnSubmit(){
+
             },
             // submitRa(){
             //     const data = {
