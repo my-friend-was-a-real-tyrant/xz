@@ -59,6 +59,7 @@ module.exports = {
         proxy: {
             '/api': {
                 target: 'https://api.dzccn.com/index.php/',
+                // target: 'http://api.cmmss.cn/index.php/',
                 changeOrigin: true,
                 pathRewrite: {'^/api': ''}
             }

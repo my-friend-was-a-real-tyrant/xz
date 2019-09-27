@@ -183,7 +183,6 @@
             // 获取默认值
             getInfoList() {
                 this.$post('api?m=api&c=user&a=getinfoList', {token:JSON.parse(localStorage.getItem('userinfo')||{}).token}).then(({result}) => {
-                    console.log(result);
                     this.cardInfoList = result
                 })
             },

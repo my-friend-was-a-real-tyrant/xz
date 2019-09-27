@@ -20,19 +20,19 @@
       <div class="avatar">
         <img :src="_imgUrl+userInfo.head_pic" />
       </div>
-      <div class="id">ID/手机：{{userInfo.mobile}}</div>
-      <div class="group">级别：{{userInfo.level}}</div>
+      <div class="id">昵称：{{userInfo.nickname}} <br/>团队级别：{{userInfo.level_name}}</div>
+      <!-- <div class="group"></div> -->
     </div>
     <div class="wallet-list">
       <ul>
         <li>
-          <div class="brt" @click="goGtc">GTC：{{userInfo.user_money}}</div>
+          <div class="brt" @click="goGtc">BNB：{{userInfo.user_money}}</div>
         </li>
         <li>
           <div class="brt" @click="goJifen">积分：{{userInfo.pay_points}}</div>
         </li>
         <li>
-          <div class="brt">LUCKY：{{userInfo.lucky_money}}</div>
+          <div class="brt">GBC：{{userInfo.lucky_money}}</div>
         </li>
         <li>
           <div class="brt" @click="goRe">推荐受益：{{userInfo.distribut_money}}</div>
@@ -41,7 +41,7 @@
           <div class="brt" @click="goTe">累计收益：{{userInfo.leji_money}}</div>
         </li>
         <li>
-          <div class="brt">总资产：{{userInfo.total_money}}</div>
+          <div class="brt">总资产：{{userInfo.total_money || '0.00'}}</div>
         </li>
       </ul>
     </div>
@@ -170,6 +170,7 @@ export default {
     getUserInfo() {
 
       this.userInfo = JSON.parse(localStorage.getItem('userinfo'))||{}
+      console.log(this.userInfo)
       // this.$fetch("api?m=api&c=user&a=userInfo&token=" + userinfo.token).then(
       //     ( {result} ) => {
       //       this.userInfo = result;
@@ -187,19 +188,19 @@ export default {
   font-size: 13px;
   margin: 10px;
   padding: 10px 10px 15px 10px;
-  line-height: 40px;
+  line-height: 26px;
   overflow: hidden;
 }
 .wallet-h .avatar {
   float: left;
-  margin-right: 5px;
+  margin-right: 15px;
   background-color: #e7eef9;
   width: 40px;
   height: 40px;
-  line-height: 40px;
   text-align: center;
   border-radius: 50%;
   overflow: hidden;
+  margin-top: 6px;
 }
 .wallet-h .avatar img {
   max-width: 40px;

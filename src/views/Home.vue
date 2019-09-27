@@ -78,7 +78,7 @@
         </div>
 
         <div id="bar1" class="bar" v-if="success">
-            <div class="ttop">恭喜您，{{msg}}！</div>
+            <div class="ttop">{{msg}}</div>
             <img src="@/assets/img/cg.png">
             <p @click="closeSuccess" style="cursor:pointer;" title="关闭"><img src="@/assets/img/x.png"></p>
         </div>

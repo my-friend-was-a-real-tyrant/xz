@@ -3,6 +3,7 @@
 const com = {
     IP: JSON.stringify('xxx'),
     imgUrl: JSON.stringify('https://api.dzccn.com')
+    // imgUrl: JSON.stringify('http://api.cmmss.cn')
 };
 
 module.exports = {

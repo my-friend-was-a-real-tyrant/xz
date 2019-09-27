@@ -26,9 +26,8 @@
         </div>
         <div class="list-a1">
           <div class="titles"></div>
-          <div class="ipt" style="text-align:center;padding:20px 0;">
-            <img :src="picUrl"
-                 style="max-height: 220px;" width="200px" height="200px">
+          <div class="ipt picimg" style="text-align:center;padding:20px 0;">
+            <img :src="picUrl" >
           </div>
         </div>
       </div>
@@ -76,4 +75,10 @@ name: "invite",
 <style scoped>
   @import "../assets/css/login.css";
   @import "../assets/css/index.css";
+
+  .picimg img{
+    width: 80%;
+    height: auto;
+    max-height: 600px!important;
+  }
 </style>
